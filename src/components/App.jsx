@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import EmployerDashboard from './EmployerDashboard'
 import JobListingsPage from './JobListingsPage'
@@ -16,12 +16,25 @@ import PrivacyPolicy from './Privacy'
 import ContactUs from './Contact'
 
 const App = () => {
+
+  const [jobListings, setJobListings] = useState([])
+  useEffect(() => {
+    async function getListings() {
+      const res = await fetch('http://localhost:4002/jobs')
+      const data = await res.json()
+      console.log(data)
+      setJobListings(data)
+    }
+    getListings()
+  }, [])
+
+
   return (
     <BrowserRouter>
       <NavBar />
       <Routes>
         <Route path='/' element={<LandingPage />} />
-        <Route path='/jobs' element={<JobListingsPage />} />
+        <Route path='/jobs' element={<JobListingsPage jobListings={jobListings}/>} />
         <Route path='/jobs/:id' element={<JobPostingPage />} />
         <Route path='/employer-dashboard' element={<EmployerDashboard />} />
         <Route path='/job-seeker-dashboard' element={<JobSeekerDashboard />} />
