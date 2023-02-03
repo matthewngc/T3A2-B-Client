@@ -14,6 +14,7 @@ const CreateListing = ({setListings, listings}) => {
   return (
     <>
     <h2>Create New Listing</h2>
+
     <form class="row g-3">
   <div class="col-md-4">
     <label for="validationDefault01" class="form-label">Job Title</label>

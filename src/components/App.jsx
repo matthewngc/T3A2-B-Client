@@ -6,6 +6,7 @@ import JobPostingPage from './JobPostingPage'
 import JobSeekerDashboard from './JobSeekerDashboard'
 import NavBar from "./NavBar";
 import CreateListing from './CreateListing'
+import EditListing from './EditListing'
 import LandingPage from './LandingPage'
 import LoginPage from './LoginPage'
 import RegisterPage from './RegisterPage'
@@ -24,6 +25,8 @@ const App = () => {
         <Route path='/login' element={<LoginPage />} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/create-listing' element ={<CreateListing />} />
+        <Route path='/edit-listing' element ={<EditListing />} />
+
       </Routes>
       <Footer />
     </BrowserRouter>
