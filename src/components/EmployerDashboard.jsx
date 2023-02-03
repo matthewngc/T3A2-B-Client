@@ -4,7 +4,10 @@ const EmployerDashboard = () => {
   return (
     <div>
       <h1>Employer Dashboard</h1>
-      <p>Accessible only to employers</p>
+      <hr></hr>
+
+      <button>Create new listing</button>
+      <hr></hr>
       {/* job postings */}
       <h2>Job Postings</h2>
       <ul>
@@ -16,6 +19,7 @@ const EmployerDashboard = () => {
         </li>
         {/* add more job postings */}
       </ul>
+      <hr></hr>
       {/* applicants */}
       <h2>Applicants</h2>
       <ul>
