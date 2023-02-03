@@ -9,6 +9,7 @@ import CreateListing from './CreateListing'
 import LandingPage from './LandingPage'
 import LoginPage from './LoginPage'
 import RegisterPage from './RegisterPage'
+import Footer from './Footer'
 
 const App = () => {
   return (
@@ -24,6 +25,7 @@ const App = () => {
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/create-listing' element ={<CreateListing />} />
       </Routes>
+      <Footer />
     </BrowserRouter>
   )
 }
