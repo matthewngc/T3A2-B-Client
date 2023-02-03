@@ -14,7 +14,6 @@ const Login = ({ userLogin }) => {
     const changeAuthMode = () => {
         setAuthMode(authMode === "signin" ? "signup" : "signin")
     }
-    console.log(authMode)
     if (authMode === "signin") {
         return (
         <div className="Auth-form-container">
@@ -61,7 +60,6 @@ const Login = ({ userLogin }) => {
         )
         }
 
-    console.log(authMode)
 
     return (
         <div className="Auth-form-container">
