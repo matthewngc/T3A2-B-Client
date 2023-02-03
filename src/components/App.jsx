@@ -29,9 +29,9 @@ const App = () => {
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/create-listing' element ={<CreateListing />} />
         <Route path='/edit-listing' element ={<EditListing />} />
-        <Route path='/TermsOfUse' element ={<TermsOfUse />} />
-        <Route path='/Privacy' element ={<PrivacyPolicy />} />
-        <Route path='/Contact' element ={<ContactUs />} />
+        <Route path='/terms-of-use' element ={<TermsOfUse />} />
+        <Route path='/privacy' element ={<PrivacyPolicy />} />
+        <Route path='/contact' element ={<ContactUs />} />
       </Routes>
       <Footer />
     </BrowserRouter>

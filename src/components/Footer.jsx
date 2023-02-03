@@ -9,7 +9,7 @@ const Footer = () => {
       <nav>
         <a href="/terms-of-use">Terms of Use</a>
         {" | "}
-        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/privacy">Privacy Policy</a>
         {" | "}
         <a href="/contact">Contact Us</a>
       </nav>
