@@ -1,4 +1,5 @@
 import React from 'react'
+import { Button } from "react-bootstrap";
 
 const EmployerDashboard = () => {
   return (
@@ -6,29 +7,42 @@ const EmployerDashboard = () => {
       <h1>Employer Dashboard</h1>
       <hr></hr>
 
-      <button>Create new listing</button>
+      <Button variant="primary" href='/create-listing'>Create new listing</Button>
       <hr></hr>
       {/* job postings */}
-      <h2>Job Postings</h2>
-      <ul>
-        <li>
-          <h3>Job Title</h3>
-          <p>Job Description</p>
-          <button>Edit</button>
-          <button>Delete</button>
-        </li>
-        {/* add more job postings */}
-      </ul>
+      <h2>Jobs Posted</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Job Title</th>
+            <th>Job Type</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Software Developer</td>
+            <td>Full Time</td>
+            <td>
+              <Button variant="primary" href='/jobs/${listing.id}'edit>Edit</Button>
+              <Button variant="primary">Delete</Button>
+              <Button variant="primary" href='/jobs/${listing.id}'applicants>View Applicants</Button>
+            </td>
+          </tr>
+          {/* add more job postings */}
+        </tbody>
+      </table>
       <hr></hr>
-      {/* applicants */}
-      <h2>Applicants</h2>
+      {/* employer information */}
+      <h2>Employer Information</h2>
       <ul>
         <li>
-          <h3>Applicant Name</h3>
-          <p>Applicant Email</p>
+          <p>Name: [Employer Name]</p>
+          <p>Email: [Employer Email]</p>
+          <p>Number: [Employer Number]</p>
         </li>
-        {/* add more applicants */}
       </ul>
+      <Button variant="primary">Edit Information</Button>
     </div>
   );
 };
