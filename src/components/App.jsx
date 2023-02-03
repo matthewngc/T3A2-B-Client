@@ -11,6 +11,9 @@ import LandingPage from './LandingPage'
 import LoginPage from './LoginPage'
 import RegisterPage from './RegisterPage'
 import Footer from './Footer'
+import TermsOfUse from './TermsOfUse'
+import PrivacyPolicy from './Privacy'
+import ContactUs from './Contact'
 
 const App = () => {
   return (
@@ -26,7 +29,9 @@ const App = () => {
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/create-listing' element ={<CreateListing />} />
         <Route path='/edit-listing' element ={<EditListing />} />
-
+        <Route path='/terms-of-use' element ={<TermsOfUse />} />
+        <Route path='/privacy' element ={<PrivacyPolicy />} />
+        <Route path='/contact' element ={<ContactUs />} />
       </Routes>
       <Footer />
     </BrowserRouter>
