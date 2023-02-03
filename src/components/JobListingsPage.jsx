@@ -55,7 +55,7 @@ const JobListingsPage = ({ jobListings }) => {
               <td>{listing.company.company}</td>
               <td>{listing.location}</td>
               <td>
-                <Button variant="primary" href={`/jobs/${listing.id}`}>View Job</Button>
+                <Button variant="primary" href={`/jobs/${listing._id}`}>View Job</Button>
               </td>
             </tr>
           ))}
