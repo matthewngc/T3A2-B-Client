@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { Table, Button, Form, FormControl } from "react-bootstrap";
 
-const JobListingsPage = () => {
-  const jobListings = [
-    { id: 1, title: "Software Engineer", company: "Apple", location: "NSW" },
-    { id: 2, title: "Data Analyst", company: "Google", location: "QLD" },
-    { id: 3, title: "Product Manager", company: "Microsoft", location: "NSW" },
-    { id: 4, title: "UI/UX Designer", company: "Amazon", location: "VIC" },
-  ];
+const JobListingsPage = ({ jobListings }) => {
+  // const jobListings = [
+  //   { id: 1, title: "Software Engineer", company: "Apple", location: "NSW" },
+  //   { id: 2, title: "Data Analyst", company: "Google", location: "QLD" },
+  //   { id: 3, title: "Product Manager", company: "Microsoft", location: "NSW" },
+  //   { id: 4, title: "UI/UX Designer", company: "Amazon", location: "VIC" },
+  // ];
 
   const [locationFilter, setLocationFilter] = useState("");
 
@@ -22,7 +22,7 @@ const JobListingsPage = () => {
   return (
     <div>
       <h1 className="text-center m-5">Job Listings</h1>
-      <Form inline className="m-5">
+      <Form inline="true" className="m-5">
         <FormControl
           as="select"
           onChange={handleLocationFilter}
@@ -49,10 +49,10 @@ const JobListingsPage = () => {
           </tr>
         </thead>
         <tbody>
-          {filteredListings.map((listing) => (
-            <tr key={listing.id}>
+          {filteredListings.map((listing, index) => (
+            <tr key={index}>
               <td>{listing.title}</td>
-              <td>{listing.company}</td>
+              <td>{listing.company.company}</td>
               <td>{listing.location}</td>
               <td>
                 <Button variant="primary" href={`/jobs/${listing.id}`}>View Job</Button>
