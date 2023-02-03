@@ -4,6 +4,7 @@ import EmployerDashboard from './EmployerDashboard'
 import JobListingsPage from './JobListingsPage'
 import JobPostingPage from './JobPostingPage'
 import JobSeekerDashboard from './JobSeekerDashboard'
+import NavBar from "./NavBar";
 
 import LandingPage from './LandingPage'
 import LoginPage from './LoginPage'
@@ -11,8 +12,8 @@ import RegisterPage from './RegisterPage'
 
 const App = () => {
   return (
-    <>
     <BrowserRouter>
+      <NavBar />
       <Routes>
         <Route path='/' element={<LandingPage />} />
         <Route path='/jobs' element={<JobListingsPage />} />
@@ -23,8 +24,8 @@ const App = () => {
         <Route path='/register' element={<RegisterPage />} />
       </Routes>
     </BrowserRouter>
-    </>
   )
 }
+
 
 export default App

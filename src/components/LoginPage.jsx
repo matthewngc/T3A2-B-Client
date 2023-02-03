@@ -4,7 +4,7 @@ import React from 'react'
 
 const LoginPage = () => {
     return (
-    <h2>Login page</h2>
+    <div>Login page</div>
     )
 //   const history = useHistory();
 //   const [email, setEmail] = useState('');
