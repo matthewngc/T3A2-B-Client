@@ -1,11 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
-import { Button } from "react-bootstrap";
+import { Button, Form, FormControl } from "react-bootstrap";
 import './styles/EmployerDashboard.css'
+
 
 const EmployerDashboard = ({ dashboardListings, userDetails }) => {
   console.log(userDetails)
   console.log(dashboardListings)
+  const [locationFilter, setLocationFilter] = useState("");
+
+  const handleLocationFilter = (event) => {
+    setLocationFilter(event.target.value);
+  };
+
+  const filteredListings = dashboardListings.filter(
+    (listing) => listing.location === locationFilter || locationFilter === ""
+  );
+
   return (
     <div className='EmployerDashboard'>
       <h1>Employer Dashboard</h1>
@@ -15,6 +26,23 @@ const EmployerDashboard = ({ dashboardListings, userDetails }) => {
       <hr></hr>
       {/* job postings */}
       <h2>Jobs Posted</h2>
+      <Form inline="true" className="m-5">
+        <FormControl
+          as="select"
+          onChange={handleLocationFilter}
+          value={locationFilter}
+        >
+          <option value="">All Locations</option>
+          <option value="NSW">New South Wales</option>
+          <option value="QLD">Queensland</option>
+          <option value="VIC">Victoria</option>
+          <option value="WA">Western Australia</option>
+          <option value="NT">Northern Territory</option>
+          <option value="SA">South Australia</option>
+          <option value="ACT">ACT</option>
+          <option value="TAS">Tasmania</option>
+        </FormControl>
+      </Form>
       <table>
         <thead>
           <tr>
@@ -24,14 +52,14 @@ const EmployerDashboard = ({ dashboardListings, userDetails }) => {
           </tr>
         </thead>
         <tbody>
-          {dashboardListings.map((listing, index) => (
+          {filteredListings.map((listing, index) => (
           <tr key={index}>
             <td>{listing.title}</td>
             <td>{listing.location}</td>
             <td>
-              {/* <Link to={`/jobs/${listing[index]._id}/edit-listing`}> */}
+              <Link to={`/jobs/${listing._id}/edit-listing`}>
                 <Button variant="primary" edit='true'>Edit</Button>
-              {/* </Link> */}
+              </Link>
               <Button variant="primary">Delete</Button>
               <Button variant="primary" href='/jobs/${listing.id}'applicants='true'>View Applicants</Button>
             </td>
