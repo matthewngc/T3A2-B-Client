@@ -1,0 +1,27 @@
+.LandingPage {
+  background-color: #D9E8F5;
+  height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.LandingPage h1 {
+  font-weight: bold;
+  color: #495057;
+  margin-bottom: 1rem;
+}
+
+.LandingPage p {
+  font-size: 1.2rem;
+  color: #495057;
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.LandingPage .btn {
+  border-radius: 50px;
+  padding: 1rem 2rem;
+  font-weight: bold;
+  letter-spacing: 1px;
+}
