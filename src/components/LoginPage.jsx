@@ -76,6 +76,7 @@ const Login = ({ userLogin }) => {
                 <label>Full Name</label>
                 <input
                 type="email"
+                value = {email}
                 className="form-control mt-1"
                 placeholder="e.g Jane Doe"
                 />
@@ -84,6 +85,8 @@ const Login = ({ userLogin }) => {
                 <label>Email address</label>
                 <input
                 type="email"
+                value = {email}
+                onChange={(event) => setEmail(event.target.value)}
                 className="form-control mt-1"
                 placeholder="Email Address"
                 />
@@ -92,6 +95,8 @@ const Login = ({ userLogin }) => {
                 <label>Password</label>
                 <input
                 type="password"
+                value={password}
+                onChange={(event) => setPassword(event.target.value)}
                 className="form-control mt-1"
                 placeholder="Password"
                 />
