@@ -63,12 +63,14 @@ const App = () => {
       sessionStorage.setItem('id', userObject.id)
       sessionStorage.setItem('token', userObject.token)
       sessionStorage.setItem('mobile', userObject.mobile)
+      sessionStorage.setItem('isEmployer', userObject.isEmployer)
       // userSessionKeys({
       //   email: userObject.email,
       //   id: userObject.id,
       //   token: userObject.token
       // })
     }
+    console.log(userObject.isEmployer)
     if (userObject.isEmployer) {
       nav('/employer-dashboard')
     } else {
@@ -82,7 +84,11 @@ const App = () => {
 
 
   // Employer dashboard
+  const [dashboardApplications, setDashboardApplications] = useState([])
   const [dashboardListings, setDashboardListings] = useState([])
+
+
+  if (sessionStorage.isEmployer) {
   useEffect(() => {
     async function getDashboardListings() {
       const res = await fetch('http://localhost:4002/jobs/dashboard', {
@@ -97,7 +103,24 @@ const App = () => {
       setDashboardListings(data)
     }
     getDashboardListings()
-  }, [])
+  }, [])} else {
+  // Jobseeker dashboard
+  useEffect(() =>{
+    async function getDashboardApplication() {
+      const res = await fetch('http://localhost:4002/applications/dashboard', {
+        method: 'GET',
+        header: {
+          'Accept': 'application/json',
+          'authorization': 'Bearer ' + sessionStorage.token
+        }
+      })
+      const data = await res.json()
+      console.log(data)
+      setDashboardApplications(data)
+    }
+    getDashboardApplication()
+  }, [])}
+
 
 
   return (
@@ -108,7 +131,7 @@ const App = () => {
         <Route path='/jobs' element={<JobListingsPage jobListings={jobListings}/>} />
         <Route path='/jobs/:id' element={<JobPostingPageWrapper />} />
         <Route path='/employer-dashboard' element={<EmployerDashboard dashboardListings={dashboardListings} userDetails={sessionStorage}/>} />
-        <Route path='/job-seeker-dashboard' element={<JobSeekerDashboard />} />
+        <Route path='/job-seeker-dashboard' element={<JobSeekerDashboard dashboardApplications={dashboardApplications} userDetails={sessionStorage} />} />
         <Route path='/login' element={<Login userLogin={userLogin}/>} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/create-listing' element ={<CreateListing />} />
