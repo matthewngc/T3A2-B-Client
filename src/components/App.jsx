@@ -208,6 +208,34 @@ const App = () => {
 
     }
 
+    const deleteListing =  async (listing) => {
+
+      try {
+        const returnedPost = await fetch(`http://localhost:4002/jobs/${listing[0]._id}`, {
+          method: 'DELETE',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'authorization': 'Bearer ' + sessionStorage.token
+          }
+        })
+        if (returnedListing.status === 403) {  
+          logoutMember()
+          nav('/jwt-expired')
+        } else {
+        const targetListingId = listing[0]._id
+        const listingIndex = listings.findIndex(listing => targetListingId == listing._id)
+        listings.splice(listingIndex, 1)
+        setListings(listings)
+        nav('/jobs')
+        }
+      }
+      catch (err){
+        console.log(err.message)
+      }
+    
+    }
+
   // Employer dashboard
   // const [dashboardApplications, setDashboardApplications] = useState([])
   // useEffect(() => {
