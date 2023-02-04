@@ -37,3 +37,11 @@ table {
     height: 2.5rem;
     margin-left: 1rem;
   }
+
+  body {
+    background-color: #d9e8f5;
+  }
+  
+  table {
+    background-color: rgba(255, 255, 255, 0.651);
+  }
