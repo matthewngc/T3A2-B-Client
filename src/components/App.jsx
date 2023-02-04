@@ -123,6 +123,46 @@ const App = () => {
     }, [])
 }
 
+  // Create Listing
+  const submitListing = async (title,description,company,location,education,experience) => {
+    try {
+      const newListing = {
+        author: loggedInMember.id,
+        title: title,
+        description: description,
+        company: company,
+        location: location,
+        education: education,
+        experience: experience
+      }
+      const returnedListing = await fetch('http:localhost:4002/jobs', {
+        method: 'Post',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json',
+          'authorization': 'Bearer ' + sessionStorage.token
+        },
+        'body': JSON.stringify(newListing)
+      })
+       
+      console.log(returnedListing.status)
+      const returnedObject = await returnedListing.json()
+      console.log(returnedObject)
+      if (returnedListing.status === 403) {
+        logoutmember()
+        nav('/jwt-expired')
+      } else {
+        listings.unshift(returnedObject)
+        setJobListings(listings)
+        nav(`/jobs/${returnedObject._id}`)
+      }
+
+     }
+     catch (err) {
+      console.log(err.message)
+     }
+  }
+
   // Employer dashboard
   // const [dashboardApplications, setDashboardApplications] = useState([])
   // useEffect(() => {
