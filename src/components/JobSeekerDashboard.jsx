@@ -1,16 +1,17 @@
 import React from 'react';
 
-const JobSeekerDashboard = () => {
-  const jobListings = [
-    { title: "Software Engineer", status: "Pending" },
-    { title: "Data Analyst", status: "Accepted" },
-    { title: "UX Designer", status: "Rejected" },
-  ];
-
+const JobSeekerDashboard = ({ dashboardApplications, userDetails}) => {
+  // const jobListings = [
+  //   { title: "Software Engineer", status: "Pending" },
+  //   { title: "Data Analyst", status: "Accepted" },
+  //   { title: "UX Designer", status: "Rejected" },
+  // ];
+  console.log(userDetails)
+  console.log({ dashboardApplications })
   return (
     <div>
       <h1>Job Seeker Dashboard</h1>
-      <p>Welcome back, ...!</p>
+      <p>Welcome back, {userDetails.name}!</p>
       {/* application status */}
       <h2>Applications:</h2>
       <table>
@@ -22,10 +23,10 @@ const JobSeekerDashboard = () => {
           </tr>
         </thead>
         <tbody>
-          {jobListings.map((listing, index) => (
+          {dashboardApplications.map((application, index) => (
             <tr key={index}>
-              <td>{listing.title}</td>
-              <td>{listing.status}</td>
+              <td>{application.listing.title}</td>
+              <td>{application.status}</td>
               <td>
                 <button>View Job Listing</button>
               </td>
@@ -36,9 +37,9 @@ const JobSeekerDashboard = () => {
       {/* profile information */}
       <h2>Profile Information</h2>
       <div>
-        <p>Name: Timothy Nguyen</p>
-        <p>Email: timmy@email.com</p>
-        <p>Location: Sydney, NSW</p>
+        <p>Name: {userDetails.name}</p>
+        <p>Email: {userDetails.email}</p>
+        <p>Mobile: {userDetails.mobile}</p>
       </div>
       <button>Edit Profile</button>
     </div>
