@@ -135,7 +135,7 @@ const App = () => {
         education: education,
         experience: experience
       }
-      const returnedListing = await fetch('http:localhost:4002/jobs', {
+      const returnedListing = await fetch('http//:localhost:4002/jobs', {
         method: 'Post',
         headers: {
           'Accept': 'application/json',
@@ -162,6 +162,51 @@ const App = () => {
       console.log(err.message)
      }
   }
+
+    const editListing = async (title,description,company,location,education,experience) => {
+      try {
+        const editListing = {
+          title: title,
+          description: description,
+          company: company,
+          location: location,
+          education: education,
+          experience: experience
+        }
+
+        const returnedListing = await fetch(`http://localhost:4002/jobs/${listing[0]._id}`, {
+          method: 'PUT',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + sessionStorage.token
+          },
+          'body': JSON.stringify(editListing)
+        })
+
+       const returnedObject = await returnedListing.json()
+
+       if (returnedListing.status === 403) {
+        logoutMember()
+        nav('/jwt-expired')
+       } else {
+       const targetListingId = listing[0]._id
+
+       const listingIndex = listings.findIndex(listing => targetListingId == listing._id)
+
+       listings.splice(listingIndex, 1, returnedObject)
+
+       setJobListings(listings)
+
+       window.scrollTo(0,0)
+       nav(`/jobs/${targetListingId}`)
+       }
+      }
+      catch (err) {
+        console.log(err.message)
+      }
+
+    }
 
   // Employer dashboard
   // const [dashboardApplications, setDashboardApplications] = useState([])
