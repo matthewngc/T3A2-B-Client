@@ -1,7 +1,8 @@
 import React from 'react'
 import { Button } from "react-bootstrap";
 
-const EmployerDashboard = () => {
+const EmployerDashboard = ({ dashboardListings, userDetails }) => {
+  console.log(userDetails)
   return (
     <div>
       <h1>Employer Dashboard</h1>
@@ -15,20 +16,22 @@ const EmployerDashboard = () => {
         <thead>
           <tr>
             <th>Job Title</th>
-            <th>Job Type</th>
+            <th>Location</th>
             <th>Actions</th>
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Software Developer</td>
-            <td>Full Time</td>
+          {dashboardListings.map((listing, index) => (
+          <tr key={index}>
+            <td>{listing.title}</td>
+            <td>{listing.location}</td>
             <td>
-              <Button variant="primary" href='/jobs/${listing.id}'edit>Edit</Button>
+              <Button variant="primary" href='/jobs/${listing.id}'edit='true'>Edit</Button>
               <Button variant="primary">Delete</Button>
-              <Button variant="primary" href='/jobs/${listing.id}'applicants>View Applicants</Button>
+              <Button variant="primary" href='/jobs/${listing.id}'applicants='true'>View Applicants</Button>
             </td>
           </tr>
+          ))}
           {/* add more job postings */}
         </tbody>
       </table>
@@ -37,8 +40,8 @@ const EmployerDashboard = () => {
       <h2>Employer Information</h2>
       <ul>
         <li>
-          <p>Name: [Employer Name]</p>
-          <p>Email: [Employer Email]</p>
+          <p>Name: {userDetails.company}</p>
+          <p>Email: {userDetails.email}</p>
           <p>Number: [Employer Number]</p>
         </li>
       </ul>
