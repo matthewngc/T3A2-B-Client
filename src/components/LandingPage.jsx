@@ -1,14 +1,15 @@
 import React from 'react'
+import './styles/LandingPage.css'
 import { Container, Row, Col, Button } from 'react-bootstrap'
 
 const LandingPage = () => {
   return (
-    <div style={{ backgroundColor: '#D9E8F5', height: '100vh' }}>
-      <Container style={{ paddingTop: '10%' }}>
+    <div className="LandingPage">
+      <Container>
         <Row>
           <Col className="text-center">
-            <h1 style={{ fontWeight: 'bold', color: '#495057' }}>Welcome to Steve's Jobs</h1>
-            <p style={{ fontSize: '1.2rem', color: '#495057' }}>
+            <h1 className="title">Welcome to Steve's Jobs</h1>
+            <p className="subtitle">
               Find your dream job or post a job listing and start your journey today.
             </p>
             <p>
