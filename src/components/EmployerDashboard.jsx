@@ -1,9 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import { Button } from "react-bootstrap";
 import './styles/EmployerDashboard.css'
 
 const EmployerDashboard = ({ dashboardListings, userDetails }) => {
   console.log(userDetails)
+  console.log(dashboardListings)
   return (
     <div className='EmployerDashboard'>
       <h1>Employer Dashboard</h1>
@@ -27,7 +29,9 @@ const EmployerDashboard = ({ dashboardListings, userDetails }) => {
             <td>{listing.title}</td>
             <td>{listing.location}</td>
             <td>
-              <Button variant="primary" href='/jobs/${listing.id}'edit='true'>Edit</Button>
+              {/* <Link to={`/jobs/${listing[index]._id}/edit-listing`}> */}
+                <Button variant="primary" edit='true'>Edit</Button>
+              {/* </Link> */}
               <Button variant="primary">Delete</Button>
               <Button variant="primary" href='/jobs/${listing.id}'applicants='true'>View Applicants</Button>
             </td>

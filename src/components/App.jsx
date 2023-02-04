@@ -274,7 +274,7 @@ const App = () => {
                />
                } 
                />
-        <Route path='/edit-listing' element ={<EditListing />} />
+        <Route path='/jobs/:id/edit-listing' element ={<EditListing />} />
         <Route path='/terms-of-use' element ={<TermsOfUse />} />
         <Route path='/privacy' element ={<PrivacyPolicy />} />
         <Route path='/contact' element ={<ContactUs />} />

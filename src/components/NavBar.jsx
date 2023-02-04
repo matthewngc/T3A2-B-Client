@@ -11,7 +11,8 @@ const NavBar = () => {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="ml-auto">
-            <Nav.Link as={Link} to="/dashboard" className="font-weight-bold">Dashboard</Nav.Link>
+            <Nav.Link as={Link} to="/employer-dashboard" className="font-weight-bold">Employer</Nav.Link>
+            <Nav.Link as={Link} to="/job-seeker-dashboard" className="font-weight-bold">Jobseeker</Nav.Link>
             <Nav.Link as={Link} to="/jobs" className="font-weight-bold">Jobs</Nav.Link>
             <Nav.Link as={Link} to="/login" className="font-weight-bold">Login</Nav.Link>
           </Nav>
