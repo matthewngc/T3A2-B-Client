@@ -1,18 +1,18 @@
 import React from 'react'
 import ListingForm from './ListingForm'
 
-const EditListing = () => {
+const EditListing = ({editListing}) => {
   return (
-        <>
+    <>
         <div>
-          <header>
-            headingText={'Edit Listing'}
-          </header>
-          <ListingForm editListing={editListing} />
+            {/* <header>
+                headingText={'Edit Listing'}
+            </header> */}
+            <ListingForm editListing={editListing} />
         </div>
-        </>
-      )
-    }
+    </>
+  )
+}
   
 
 export default EditListing

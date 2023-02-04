@@ -37,6 +37,12 @@ const App = () => {
     return listing ? <JobPostingPage listing={listing} /> : <h4>Job Listing not found!</h4>
   }
 
+  const EditListingWrapper = () => {
+    const { id } = useParams()
+    const listing = jobListings.find(listing => listing._id == id)
+    return listing ? <EditListing listing={listing} /> : <h4>Job Listing not found</h4>
+  }
+
   // Login
   const userLogin = async (email, password) => {
     try {
@@ -274,7 +280,7 @@ const App = () => {
                />
                } 
                />
-        <Route path='/jobs/:id/edit-listing' element ={<EditListing />} />
+        <Route path='/jobs/:id/edit-listing' element ={<EditListingWrapper />} />
         <Route path='/terms-of-use' element ={<TermsOfUse />} />
         <Route path='/privacy' element ={<PrivacyPolicy />} />
         <Route path='/contact' element ={<ContactUs />} />

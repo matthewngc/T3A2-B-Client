@@ -5,9 +5,9 @@ const CreateListing = ({submitListing}) => {
   return (
     <>
         <div>
-            <header>
+            {/* <header>
                 headingText={'Create New Listing'}
-            </header>
+            </header> */}
             <ListingForm submitListing={submitListing} />
         </div>
     </>
