@@ -3,7 +3,7 @@ import React from 'react'
 const EditListing = () => {
   return (
         <>
-        <h2>Create New Listing</h2>
+        <h2>Edit Listing</h2>
     
         <form className="row g-3">
       <div className="col-md-4">

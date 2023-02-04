@@ -5,7 +5,7 @@ import JobListingsPage from './JobListingsPage'
 import JobPostingPage from './JobPostingPage'
 import JobSeekerDashboard from './JobSeekerDashboard'
 import NavBar from "./NavBar";
-import CreateListing from './CreateListing'
+import CreateListing from './ListingForm'
 import EditListing from './EditListing'
 import LandingPage from './LandingPage'
 import LoginPage from './LoginPage'
@@ -87,7 +87,7 @@ const App = () => {
   const [dashboardApplications, setDashboardApplications] = useState([])
   const [dashboardListings, setDashboardListings] = useState([])
 
-  if (!sessionStorage.isEmployer) {
+  if (sessionStorage.isEmployer &&! JSON.parse(sessionStorage.isEmployer)) {
   useEffect(() => {
     async function getDashboardApplications() {
       const res = await fetch('http://localhost:4002/applications/dashboard', {
@@ -126,7 +126,7 @@ const App = () => {
   const submitListing = async (title,description,company,location,education,experience) => {
     try {
       const newListing = {
-        author: loggedInMember.id,
+        author: sessionStorage.id,
         title: title,
         description: description,
         company: company,
@@ -134,8 +134,9 @@ const App = () => {
         education: education,
         experience: experience
       }
-      const returnedListing = await fetch('http//:localhost:4002/jobs', {
-        method: 'Post',
+      console.log(newListing)
+      const returnedListing = await fetch('http://localhost:4002/jobs', {
+        method: 'POST',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json',
@@ -143,18 +144,20 @@ const App = () => {
         },
         'body': JSON.stringify(newListing)
       })
-       
+      console.log(returnedListing) 
       console.log(returnedListing.status)
       const returnedObject = await returnedListing.json()
       console.log(returnedObject)
-      if (returnedListing.status === 403) {
-        logoutmember()
-        nav('/jwt-expired')
-      } else {
-        listings.unshift(returnedObject)
-        setJobListings(listings)
-        nav(`/jobs/${returnedObject._id}`)
-      }
+      // if (returnedListing.status === 403) {
+      //   logoutmember()
+      //   nav('/jwt-expired')
+      // } else 
+      // {
+      jobListings.unshift(returnedObject)
+
+      // setJobListings(...jobListings, returnedObject)
+      nav(`/jobs/${returnedObject._id}`)
+      // }
 
      }
      catch (err) {
@@ -263,7 +266,14 @@ const App = () => {
         <Route path='/job-seeker-dashboard' element={<JobSeekerDashboard dashboardApplications={dashboardApplications} userDetails={sessionStorage}/>} />
         <Route path='/employer-dashboard' element={<EmployerDashboard dashboardListings={dashboardListings} userDetails={sessionStorage} />} /> 
         <Route path='/login' element={<Login userLogin={userLogin}/>} />
-        <Route path='/create-listing' element ={<CreateListing />} />
+        <Route path='/create-listing'
+               element ={
+               <CreateListing 
+               
+               submitListing={submitListing}
+               />
+               } 
+               />
         <Route path='/edit-listing' element ={<EditListing />} />
         <Route path='/terms-of-use' element ={<TermsOfUse />} />
         <Route path='/privacy' element ={<PrivacyPolicy />} />
