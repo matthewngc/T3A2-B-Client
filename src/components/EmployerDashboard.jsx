@@ -1,14 +1,15 @@
 import React from 'react'
 import { Button } from "react-bootstrap";
+import './styles/EmployerDashboard.css'
 
 const EmployerDashboard = ({ dashboardListings, userDetails }) => {
   console.log(userDetails)
   return (
-    <div>
+    <div className='EmployerDashboard'>
       <h1>Employer Dashboard</h1>
       <hr></hr>
 
-      <Button variant="primary" href='/create-listing'>Create new listing</Button>
+      <Button variant="primary" href='/create-listing'>Create New Listing</Button>
       <hr></hr>
       {/* job postings */}
       <h2>Jobs Posted</h2>
@@ -37,15 +38,17 @@ const EmployerDashboard = ({ dashboardListings, userDetails }) => {
       </table>
       <hr></hr>
       {/* employer information */}
-      <h2>Employer Information</h2>
-      <ul>
-        <li>
-          <p>Name: {userDetails.company}</p>
-          <p>Email: {userDetails.email}</p>
-          <p>Number: {userDetails.mobile}</p>
-        </li>
-      </ul>
-      <Button variant="primary">Edit Information</Button>
+      <div className='EmployerInformation'>
+        <h2>Employer Information</h2>
+        <ul>
+          <li>
+            <p>Name: {userDetails.company}</p>
+            <p>Email: {userDetails.email}</p>
+            <p>Number: {userDetails.mobile}</p>
+          </li>
+        </ul>
+        <Button variant="primary">Edit Information</Button>
+      </div>
     </div>
   );
 };
