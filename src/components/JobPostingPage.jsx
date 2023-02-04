@@ -1,11 +1,12 @@
 import React from 'react'
+import './styles/JobPostingPage.css'
 
 const JobPostingPage = ({ listing }) => {
   return (
   <>
-    <div>
-      <h1>Job Posting Page</h1>
-      <p>{listing.title}</p>
+    <div className="JobPostingPage">
+      <h1>{listing.title}</h1>
+      <p>{listing.location}</p>
       {/* job description */}
       <h2>Job Description</h2>
       <p>{listing.description}</p>
