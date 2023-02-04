@@ -1,14 +1,14 @@
 import React from 'react'
 import ListingForm from './ListingForm'
 
-const EditListing = ({editListing}) => {
+const EditListing = ({listing, editListing, isEdit }) => {
   return (
     <>
         <div>
             {/* <header>
                 headingText={'Edit Listing'}
             </header> */}
-            <ListingForm editListing={editListing} />
+            <ListingForm listing={listing} editListing={editListing} isEdit={isEdit} />
         </div>
     </>
   )

@@ -40,7 +40,8 @@ const App = () => {
   const EditListingWrapper = () => {
     const { id } = useParams()
     const listing = jobListings.find(listing => listing._id == id)
-    return listing ? <EditListing listing={listing} /> : <h4>Job Listing not found</h4>
+    const isEdit = true
+    return listing ? <EditListing listing={listing} isEdit={isEdit} editListing={editListing}/> : <h4>Job Listing not found</h4>
   }
 
   // Login
@@ -171,7 +172,7 @@ const App = () => {
      }
   }
 
-    const editListing = async (title,description,company,location,education,experience) => {
+    const editListing = async (listing, title, description, company, location, education, experience) => {
       try {
         const editListing = {
           title: title,
@@ -182,7 +183,7 @@ const App = () => {
           experience: experience
         }
 
-        const returnedListing = await fetch(`http://localhost:4002/jobs/${listing[0]._id}`, {
+        const returnedListing = await fetch(`http://localhost:4002/jobs/${listing._id}`, {
           method: 'PUT',
           headers: {
             'Accept': 'application/json',
@@ -194,22 +195,22 @@ const App = () => {
 
        const returnedObject = await returnedListing.json()
 
-       if (returnedListing.status === 403) {
-        logoutMember()
-        nav('/jwt-expired')
-       } else {
-       const targetListingId = listing[0]._id
+      //  if (returnedListing.status === 403) {
+      //   logoutMember()
+      //   nav('/jwt-expired')
+      //  } else {
+       const targetListingId = listing._id
 
-       const listingIndex = listings.findIndex(listing => targetListingId == listing._id)
+       const listingIndex = jobListings.findIndex(listing => targetListingId == listing._id)
 
-       listings.splice(listingIndex, 1, returnedObject)
+       jobListings.splice(listingIndex, 1, returnedObject)
 
-       setJobListings(listings)
+       setJobListings(jobListings)
 
-       window.scrollTo(0,0)
+      //  window.scrollTo(0,0)
        nav(`/jobs/${targetListingId}`)
        }
-      }
+      // }
       catch (err) {
         console.log(err.message)
       }
@@ -280,7 +281,7 @@ const App = () => {
                />
                } 
                />
-        <Route path='/jobs/:id/edit-listing' element ={<EditListingWrapper />} />
+        <Route path='/jobs/:id/edit-listing' element ={<EditListingWrapper editListing={editListing}/>} />
         <Route path='/terms-of-use' element ={<TermsOfUse />} />
         <Route path='/privacy' element ={<PrivacyPolicy />} />
         <Route path='/contact' element ={<ContactUs />} />

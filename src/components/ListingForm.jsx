@@ -1,28 +1,27 @@
 import React, {useState} from 'react'
 
-const ListingForm = ({submitListing, editListing, listing, edit}) => {
+const ListingForm = ({submitListing, editListing, listing, isEdit}) => {
 
-    const [title, setTitle] = useState('')
-    const [description, setDescription] = useState('')
-    const [company, setCompany] = useState('')
-    const [location, setLocation] = useState('')
-    const [education, setEducation] = useState('')
-    const [experience, setExperience] = useState('')
+    const [title, setTitle] = useState(isEdit ? listing.title : '')
+    const [description, setDescription] = useState(isEdit ? listing.description : '')
+    const [company, setCompany] = useState(isEdit ? listing.company.company : '')
+    const [location, setLocation] = useState(isEdit ? listing.location : '')
+    const [education, setEducation] = useState(isEdit ? listing.education : '')
+    const [experience, setExperience] = useState(isEdit ? listing.experience :'')
     
     function submitForm(evt) {
-        evt.preventDefault()
-        submitListing(title, description, company, location, education, experience)
+       evt.preventDefault()
+       submitListing(title, description, company, location, education, experience)
+    }
 
-    function submitEditForm(evt) {
+    function submitEdit(evt) {
        evt.preventDefault()
        editListing(listing, title, description, company, location, education, experience)
     }    
 
-    }
-
   return (
     <>
-      <form className="row g-3" onSubmit={submitForm}>
+      <form className="row g-3" onSubmit={isEdit ? submitEdit : submitForm}>
       <div className="col-md-4">
           <label htmlFor="validationDefault01" className="form-label">Job Title</label>
           <input type="text"
