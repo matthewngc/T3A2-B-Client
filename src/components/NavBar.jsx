@@ -1,26 +1,25 @@
 import React from 'react'
 import './styles/NavBar.css'
 import { Link } from 'react-router-dom'
+import { Navbar, Nav, Container } from 'react-bootstrap'
 
 const NavBar = () => {
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
-      <div className="container-fluid d-flex justify-content-between">
-        <Link className="navbar-brand text-white h3 font-weight-bold" to="/">Steve's Jobs</Link>
-        <ul className="navbar-nav">
-          <li className="nav-item">
-            <Link className="nav-link text-white font-weight-bold" to="/dashboard">Dashboard</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link text-white font-weight-bold" to="/jobs">Jobs</Link>
-          </li>
-          <li className="nav-item">
-            <Link className="nav-link text-white font-weight-bold" to="/login">Login</Link>
-          </li>
-        </ul>
-      </div>
-    </nav>
+    <Navbar bg="transparent" expand="lg">
+      <Container>
+        <Navbar.Brand as={Link} to="/" className="font-weight-bold">Steve's Jobs</Navbar.Brand>
+        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Collapse id="basic-navbar-nav">
+          <Nav className="ml-auto">
+            <Nav.Link as={Link} to="/dashboard" className="font-weight-bold">Dashboard</Nav.Link>
+            <Nav.Link as={Link} to="/jobs" className="font-weight-bold">Jobs</Nav.Link>
+            <Nav.Link as={Link} to="/login" className="font-weight-bold">Login</Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
   )
 }
 
 export default NavBar
+
