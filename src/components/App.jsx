@@ -54,10 +54,12 @@ const App = () => {
       },
       'body': JSON.stringify(user)
     })
-    console.log(returnedUser)
+    // console.log(returnedUser)
     const userObject = await returnedUser.json()
-    console.log(userObject)
+    // console.log(userObject)
+    console.log(userObject.token)
     if (userObject.id) {
+      sessionStorage.setItem('name', userObject.name)
       sessionStorage.setItem('company', userObject.company)
       sessionStorage.setItem('email', userObject.email)
       sessionStorage.setItem('id', userObject.id)
@@ -82,16 +84,14 @@ const App = () => {
   }
   }
 
-
   // Employer dashboard
   const [dashboardApplications, setDashboardApplications] = useState([])
   const [dashboardListings, setDashboardListings] = useState([])
 
-
-  if (sessionStorage.isEmployer) {
+  if (!sessionStorage.isEmployer) {
   useEffect(() => {
-    async function getDashboardListings() {
-      const res = await fetch('http://localhost:4002/jobs/dashboard', {
+    async function getDashboardApplications() {
+      const res = await fetch('http://localhost:4002/applications/dashboard', {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
@@ -100,28 +100,46 @@ const App = () => {
       })
       const data = await res.json()
       console.log(data)
-      setDashboardListings(data)
-    }
-    getDashboardListings()
-  }, [])} else {
-  // Jobseeker dashboard
-  useEffect(() =>{
-    async function getDashboardApplication() {
-      const res = await fetch('http://localhost:4002/applications/dashboard', {
-        method: 'GET',
-        header: {
-          'Accept': 'application/json',
-          'authorization': 'Bearer ' + sessionStorage.token
-        }
-      })
-      const data = await res.json()
-      console.log(data)
       setDashboardApplications(data)
     }
-    getDashboardApplication()
-  }, [])}
+    getDashboardApplications()
+  }, [])
+} else {
+    // Jobseeker dashboard
+    useEffect(() => {
+      async function getDashboardListings() {
+        const res = await fetch('http://localhost:4002/jobs/dashboard', {
+          method: 'GET',
+          headers: {
+            'Accept': 'application/json',
+            'authorization': 'Bearer ' + sessionStorage.token
+          }
+        })
+        const data = await res.json()
+        console.log(data)
+        setDashboardListings(data)
+      }
+      getDashboardListings()
+    }, [])
+}
 
-
+  // Employer dashboard
+  // const [dashboardApplications, setDashboardApplications] = useState([])
+  // useEffect(() => {
+  //   async function getDashboardApplications() {
+  //     const res = await fetch('http://localhost:4002/applications/dashboard', {
+  //       method: 'GET',
+  //       headers: {
+  //         'Accept': 'application/json',
+  //         'authorization': 'Bearer ' + sessionStorage.token
+  //       }
+  //     })
+  //     const data = await res.json()
+  //     console.log(data)
+  //     setDashboardApplications(data)
+  //   }
+  //   getDashboardApplications()
+  // }, [])
 
   return (
     <>
@@ -130,8 +148,8 @@ const App = () => {
         <Route path='/' element={<LandingPage />} />
         <Route path='/jobs' element={<JobListingsPage jobListings={jobListings}/>} />
         <Route path='/jobs/:id' element={<JobPostingPageWrapper />} />
-        <Route path='/employer-dashboard' element={<EmployerDashboard dashboardListings={dashboardListings} userDetails={sessionStorage}/>} />
-        <Route path='/job-seeker-dashboard' element={<JobSeekerDashboard dashboardApplications={dashboardApplications} userDetails={sessionStorage} />} />
+        <Route path='/job-seeker-dashboard' element={<JobSeekerDashboard dashboardApplications={dashboardApplications} userDetails={sessionStorage}/>} />
+        <Route path='/employer-dashboard' element={<EmployerDashboard dashboardListings={dashboardListings} userDetails={sessionStorage} />} /> 
         <Route path='/login' element={<Login userLogin={userLogin}/>} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/create-listing' element ={<CreateListing />} />
