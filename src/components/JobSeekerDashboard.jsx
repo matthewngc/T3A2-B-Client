@@ -1,4 +1,5 @@
 import React from 'react';
+import './styles/JobSeekerDashboard.css'
 
 const JobSeekerDashboard = ({ dashboardApplications, userDetails}) => {
   // const jobListings = [
@@ -9,7 +10,7 @@ const JobSeekerDashboard = ({ dashboardApplications, userDetails}) => {
   console.log(userDetails)
   console.log({ dashboardApplications })
   return (
-    <div>
+    <div className="JobSeekerDashboard">
       <h1>Job Seeker Dashboard</h1>
       <p>Welcome back, {userDetails.name}!</p>
       {/* application status */}
@@ -35,13 +36,15 @@ const JobSeekerDashboard = ({ dashboardApplications, userDetails}) => {
         </tbody>
       </table>
       {/* profile information */}
-      <h2>Profile Information</h2>
-      <div>
-        <p>Name: {userDetails.name}</p>
-        <p>Email: {userDetails.email}</p>
-        <p>Mobile: {userDetails.mobile}</p>
+      <div className="ProfileInformation">
+        <h2>Profile Information</h2>
+        <div>
+          <p>Name: {userDetails.name}</p>
+          <p>Email: {userDetails.email}</p>
+          <p>Mobile: {userDetails.mobile}</p>
+        </div>
+        <button>Edit Profile</button>
       </div>
-      <button>Edit Profile</button>
     </div>
   );
 };
