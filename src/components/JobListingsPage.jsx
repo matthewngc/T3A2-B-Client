@@ -1,14 +1,8 @@
 import React, { useState } from "react";
+import './styles/JobListingsPage.css'
 import { Table, Button, Form, FormControl } from "react-bootstrap";
 
 const JobListingsPage = ({ jobListings }) => {
-  // const jobListings = [
-  //   { id: 1, title: "Software Engineer", company: "Apple", location: "NSW" },
-  //   { id: 2, title: "Data Analyst", company: "Google", location: "QLD" },
-  //   { id: 3, title: "Product Manager", company: "Microsoft", location: "NSW" },
-  //   { id: 4, title: "UI/UX Designer", company: "Amazon", location: "VIC" },
-  // ];
-
   const [locationFilter, setLocationFilter] = useState("");
 
   const handleLocationFilter = (event) => {
