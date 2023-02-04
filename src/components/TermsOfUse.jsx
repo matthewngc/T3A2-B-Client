@@ -1,8 +1,9 @@
 import React from 'react'
+import './styles/TermsOfUse.css'
 
 const TermsOfUse = () => {
   return (
-    <div>
+    <div className='termsofuse'>
       <h1>Terms of Use</h1>
       <hr></hr>
       <p>
