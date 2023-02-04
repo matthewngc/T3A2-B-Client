@@ -57,15 +57,6 @@ const CreateListing = ({setListings, listings}) => {
            <span className="input-group-text" id="inputGroupPrepend2">Years</span>
      </div>
      </div>
-     {/* <div className="col-md-3">
-           <label for="validationDefault04" className="form-label">Employment Type</label>
-           <select className="form-select" id="validationDefault04" required>
-           <option selected disabled value="">Choose...</option>
-           <option>Full-time</option>
-           <option>Part-Time</option>
-           <option>Casual</option>
-           </select>
-     </div> */}
      <div className="col-md-3">
            <label for="validationDefault04" className="form-label">Location</label>
            <select 
@@ -93,18 +84,16 @@ const CreateListing = ({setListings, listings}) => {
                 value ={education}
                 onChange={(event) => setEducation(event.target.value)}
                 required>
-
-        </input>
+         </input>
     </div>
     <div>
          <label for="validationDefault05" className="form-label">Description</label>
          <textarea className='form-control' 
-                   rows= '10'
+         rows= '10'
                    value = {description}
                    onChange={(event) => setDescription(event.target.value)}
                    required
                    >
-
         </textarea>
     </div>
     <div className="col-12">
