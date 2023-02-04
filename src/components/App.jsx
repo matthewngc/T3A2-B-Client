@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route, useParams } from 'react-router-dom'
+import { BrowserRouter, Routes, Route, useParams, useNavigate } from 'react-router-dom'
 import EmployerDashboard from './EmployerDashboard'
 import JobListingsPage from './JobListingsPage'
 import JobPostingPage from './JobPostingPage'
@@ -14,8 +14,10 @@ import Footer from './Footer'
 import TermsOfUse from './TermsOfUse'
 import PrivacyPolicy from './Privacy'
 import ContactUs from './Contact'
+import Login from './LoginPage'
 
 const App = () => {
+  const nav = useNavigate()
 
   const [jobListings, setJobListings] = useState([])
   useEffect(() => {
@@ -36,6 +38,40 @@ const App = () => {
     return listing ? <JobPostingPage listing={listing} /> : <h4>Job Listing not found!</h4>
   }
 
+  // Login
+  const userLogin = async (email, password) => {
+    try {
+      const user = {
+        email: email,
+        password: password
+      }
+
+    const returnedUser = await fetch('http://localhost:4002/auth/login', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      'body': JSON.stringify(user)
+    })
+    console.log(returnedUser)
+    const userObject = await returnedUser.json()
+    if (userObject.id) {
+      sessionStorage.setItem('email', userObject.email)
+      sessionStorage.setItem('id', userObject.id)
+      sessionStorage.setItem('token', userObject.token)
+    }
+    if (userObject.isEmployer) {
+      nav('/employer-dashboard')
+    } else {
+      nav('/job-seeker-dashboard')
+    }
+  }
+  catch (err) {
+    console.log(err.message)
+  }
+  }
+
   return (
     <>
       <NavBar />
@@ -45,7 +81,7 @@ const App = () => {
         <Route path='/jobs/:id' element={<JobPostingPageWrapper />} />
         <Route path='/employer-dashboard' element={<EmployerDashboard />} />
         <Route path='/job-seeker-dashboard' element={<JobSeekerDashboard />} />
-        <Route path='/login' element={<LoginPage />} />
+        <Route path='/login' element={<Login userLogin={userLogin}/>} />
         <Route path='/register' element={<RegisterPage />} />
         <Route path='/create-listing' element ={<CreateListing />} />
         <Route path='/edit-listing' element ={<EditListing />} />
