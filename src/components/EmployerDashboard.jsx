@@ -42,7 +42,7 @@ const EmployerDashboard = ({ dashboardListings, userDetails }) => {
         <li>
           <p>Name: {userDetails.company}</p>
           <p>Email: {userDetails.email}</p>
-          <p>Number: [Employer Number]</p>
+          <p>Number: {userDetails.mobile}</p>
         </li>
       </ul>
       <Button variant="primary">Edit Information</Button>

@@ -62,7 +62,7 @@ const App = () => {
       sessionStorage.setItem('email', userObject.email)
       sessionStorage.setItem('id', userObject.id)
       sessionStorage.setItem('token', userObject.token)
-
+      sessionStorage.setItem('mobile', userObject.mobile)
       // userSessionKeys({
       //   email: userObject.email,
       //   id: userObject.id,
