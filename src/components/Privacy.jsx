@@ -1,8 +1,9 @@
 import React from 'react';
+import './styles/PrivacyPolicy.css'
 
 const PrivacyPolicy = () => {
   return (
-    <div>
+    <div className='privacy'>
       <h1>Privacy Policy</h1>
       <p>
         Our privacy policy is designed to provide transparency into our data collection and usage practices and to help you make informed decisions about the collection, use and sharing of your data.

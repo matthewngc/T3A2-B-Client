@@ -9,7 +9,6 @@ import CreateListing from './CreateListing'
 import EditListing from './EditListing'
 import LandingPage from './LandingPage'
 import LoginPage from './LoginPage'
-import RegisterPage from './RegisterPage'
 import Footer from './Footer'
 import TermsOfUse from './TermsOfUse'
 import PrivacyPolicy from './Privacy'
@@ -151,7 +150,6 @@ const App = () => {
         <Route path='/job-seeker-dashboard' element={<JobSeekerDashboard dashboardApplications={dashboardApplications} userDetails={sessionStorage}/>} />
         <Route path='/employer-dashboard' element={<EmployerDashboard dashboardListings={dashboardListings} userDetails={sessionStorage} />} /> 
         <Route path='/login' element={<Login userLogin={userLogin}/>} />
-        <Route path='/register' element={<RegisterPage />} />
         <Route path='/create-listing' element ={<CreateListing />} />
         <Route path='/edit-listing' element ={<EditListing />} />
         <Route path='/terms-of-use' element ={<TermsOfUse />} />
