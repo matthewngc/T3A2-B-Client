@@ -29,9 +29,9 @@ const EmployerDashboard = ({ dashboardListings, userDetails }) => {
             <td>{listing.title}</td>
             <td>{listing.location}</td>
             <td>
-              {/* <Link to={`/jobs/${listing[index]._id}/edit-listing`}> */}
+              <Link to={`/jobs/${listing._id}/edit-listing`}>
                 <Button variant="primary" edit='true'>Edit</Button>
-              {/* </Link> */}
+              </Link>
               <Button variant="primary">Delete</Button>
               <Button variant="primary" href='/jobs/${listing.id}'applicants='true'>View Applicants</Button>
             </td>
