@@ -13,6 +13,6 @@ const EditListing = ({listing, editListing, isEdit }) => {
     </>
   )
 }
-  
+
 
 export default EditListing
