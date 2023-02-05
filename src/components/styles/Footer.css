@@ -1,26 +1,21 @@
-.wrapper {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
-}
-
-.content {
+  .content {
     flex: 1;
-}
-
-footer {
+  }
+  
+  footer {
     background-color: #2392f325;
     padding: 1em;
     text-align: center;
     width: 100%;
-}
-
-footer p {
+    position: sticky;
+  }
+  
+  footer p {
     margin: 0;
-}
-
-footer nav a {
+  }
+  
+  footer nav a {
     color: #333;
     text-decoration: none;
     margin: 0 10px;
-}
+  }
