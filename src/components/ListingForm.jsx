@@ -19,8 +19,12 @@ const ListingForm = ({submitListing, editListing, listing, isEdit}) => {
        editListing(listing, title, description, company, location, education, experience)
     }    
 
+    const newListing = []
+    
+
   return (
     <>
+       <h2>{newListing} Listing</h2>
       <form className="row g-3" onSubmit={isEdit ? submitEdit : submitForm}>
       <div className="col-md-4">
           <label htmlFor="validationDefault01" className="form-label">Job Title</label>

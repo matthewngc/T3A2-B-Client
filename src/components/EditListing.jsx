@@ -1,7 +1,13 @@
 import React from 'react'
 import ListingForm from './ListingForm'
 
-const EditListing = ({listing, editListing, isEdit }) => {
+const EditListing = ({listing, editListing, isEdit, deleteListing }) => {
+
+  function submitDelete(evt) {
+    evt.preventDefault()
+    deleteListing(listing)
+  }
+
   return (
     <>
         <div>
@@ -9,7 +15,7 @@ const EditListing = ({listing, editListing, isEdit }) => {
                 headingText={'Edit Listing'}
             </header> */}
             <ListingForm listing={listing} editListing={editListing} isEdit={isEdit} />
-            <button>Delete Listing</button>
+            <button onClick ={submitDelete}>Delete Listing</button>
             </div>
     </>
   )

@@ -41,7 +41,7 @@ const App = () => {
     const { id } = useParams()
     const listing = jobListings.find(listing => listing._id == id)
     const isEdit = true
-    return listing ? <EditListing listing={listing} isEdit={isEdit} editListing={editListing}/> : <h4>Job Listing not found</h4>
+    return listing ? <EditListing listing={listing} isEdit={isEdit} editListing={editListing} deleteListing={deleteListing}/> : <h4>Job Listing not found</h4>
   }
 
   // Login
@@ -232,11 +232,11 @@ const App = () => {
         //   logoutMember()
         //   nav('/jwt-expired')
         // } else {
-        const targetListingId = listing[0]._id
-        const listingIndex = listings.findIndex(listing => targetListingId == listing._id)
-        listings.splice(listingIndex, 1)
-        setListings(listings)
-        nav('/jobs')
+        const targetListingId = listing._id
+        const listingIndex = jobListings.findIndex(listing => targetListingId == listing._id)
+        jobListings.splice(listingIndex, 1)
+        setJobListings(jobListings)
+        nav('/employer-dashboard')
         
       }
       catch (err){
