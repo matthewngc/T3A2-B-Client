@@ -14,6 +14,7 @@ import TermsOfUse from './TermsOfUse'
 import PrivacyPolicy from './Privacy'
 import ContactUs from './Contact'
 import Login from './LoginPage'
+import Application from './Application'
 
 const App = () => {
   const nav = useNavigate()
@@ -27,6 +28,18 @@ const App = () => {
     }
     getListings()
   }, [])
+
+    const [applications, setApplications] = useState([])
+    useEffect(() => {
+      async function getApplications() {
+        const res = await fetch('http://localhost:4002/applications')
+        const data = await res.json()
+        setApplications(data)
+    }
+    getApplications()
+
+  }, [])
+
 
   // Higher Order Components
   const JobPostingPageWrapper = () => {
@@ -243,6 +256,31 @@ const App = () => {
         console.log(err.message)
       }
     
+    }
+
+    const submitApplication = async (listing) => {
+      try {
+        const newApplication = {
+          listing: listing,
+        }
+        const returnedApplication = await fetch(`http://localhost:4002/jobs/${listing._id}`, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer' + sessionStorage.token
+          },
+          'body': JSON.stringify(newApplication)
+        })
+
+        const returnedObject = await returnedApplication.json()
+        applications.unshift(returnedObject)
+        
+        nav(`/jobs/${returnedObject._id}`)
+      }
+      catch (err) {
+        console.log(err.message)
+      }
     }
 
   // Employer dashboard
