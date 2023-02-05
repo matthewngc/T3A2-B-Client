@@ -1,4 +1,5 @@
 import React, {useState} from 'react'
+import './styles/ListingForm.css'
 
 const ListingForm = ({submitListing, editListing, listing, isEdit}) => {
 
@@ -62,7 +63,7 @@ const ListingForm = ({submitListing, editListing, listing, isEdit}) => {
            <span className="input-group-text" id="inputGroupPrepend2">Years</span>
      </div>
      </div>
-     <div className="col-md-3">
+     <div className="col-md-4">
            <label htmlFor="validationDefault04" className="form-label">Location</label>
            <select 
                   className="form-select" 
@@ -81,7 +82,7 @@ const ListingForm = ({submitListing, editListing, listing, isEdit}) => {
           <option>NT</option>
           </select>
     </div>
-    <div className="col-md-3">
+    <div className="col-md-4">
          <label htmlFor="validationDefault05" className="form-label">Education</label>
          <input type="text"
                 className="form-control" 
@@ -91,7 +92,7 @@ const ListingForm = ({submitListing, editListing, listing, isEdit}) => {
                 required>
          </input>
     </div>
-    <div>
+    <div className="col-md-4">
          <label htmlFor="validationDefault05" className="form-label">Description</label>
          <textarea className='form-control' 
          rows= '10'
@@ -101,7 +102,7 @@ const ListingForm = ({submitListing, editListing, listing, isEdit}) => {
                    >
         </textarea>
     </div>
-    <div className="col-12">
+    <div className="col-md-4">
          <button className="btn btn-primary" type="submit">Submit listing</button>
   </div>
 </form>

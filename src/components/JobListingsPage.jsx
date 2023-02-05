@@ -14,7 +14,7 @@ const JobListingsPage = ({ jobListings }) => {
   );
 
   return (
-    <div>
+    <div className='JobListingsPage'>
       <h1 className="text-center m-5">Job Listings</h1>
       <Form inline="true" className="m-5">
         <FormControl

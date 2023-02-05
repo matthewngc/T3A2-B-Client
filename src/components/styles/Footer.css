@@ -1,41 +1,21 @@
-footer {
-    background-color: #d9e8f5;
-    padding: 20px;
-    text-align: center;
-    color: #333;
-    font-size: 14px;
+  .content {
+    flex: 1;
   }
   
-footer p {
-    margin: 0;
-}
-  
-footer nav a {
-    color: #333;
-    text-decoration: none;
-    margin: 0 10px;
-}
-  
-html, body {
-    height: 100%;
-    margin: 0;
-}
-
-.wrapper {
-    min-height: 100%;
-    display: flex;
-    flex-direction: column;
-}
-
-.content {
-    flex: 1;
-}
-
-footer {
+  footer {
     background-color: #2392f325;
     padding: 1em;
     text-align: center;
-    position: absolute;
-    bottom: 0;
     width: 100%;
-}
+    position: sticky;
+  }
+  
+  footer p {
+    margin: 0;
+  }
+  
+  footer nav a {
+    color: #333;
+    text-decoration: none;
+    margin: 0 10px;
+  }
