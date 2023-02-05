@@ -4,6 +4,14 @@ import './styles/LoginPage.css'
 const Login = ({ userLogin }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
+    const [name, setName] = useState('')
+    const [company, setCompany] = useState('')
+    const [mobile, setMobile] = useState('')
+    const [isEmployer, setIsEmployer] = useState('')
+
+    function handleChange(isEmployer) {
+        // Need to make a function to convert isEmployer value to boolean
+    }
 
     function submit(evt) {
         evt.preventDefault()
@@ -76,10 +84,21 @@ const Login = ({ userLogin }) => {
             <div className="form-group mt-3">
                 <label>Full Name</label>
                 <input
-                type="email"
-                value = {email}
+                type="name"
+                value = {name}
+                onChange={(event) => setName(event.target.value)}
                 className="form-control mt-1"
                 placeholder="e.g Jane Doe"
+                />
+            </div>
+            <div className="form-group mt-3">
+                <label>Company</label>
+                <input
+                type="company"
+                value = {company}
+                onChange={(event) => setCompany(event.target.value)}
+                className="form-control mt-1"
+                placeholder="e.g ABC Ltd"
                 />
             </div>
             <div className="form-group mt-3">
@@ -91,6 +110,28 @@ const Login = ({ userLogin }) => {
                 className="form-control mt-1"
                 placeholder="Email Address"
                 />
+            </div>
+            <div className="form-group mt-3">
+                <label>Mobile</label>
+                <input
+                type="mobile"
+                value = {mobile}
+                onChange={(event) => setMobile(event.target.value)}
+                className="form-control mt-1"
+                placeholder="Mobile"
+                />
+            </div>
+            <div className="form-group mt-3">
+                <label>Are you an Employer or a Jobseeker?</label>
+                <select
+                type="isEmployer"
+                value = {isEmployer} // need to check if this is right
+                onChange={(event) => setIsEmployer(event.target.value)}
+                className="form-control mt-1"
+                >
+                    <option value={true}>Employer</option>
+                    <option value={false}>Jobseeker</option>
+                </select>
             </div>
             <div className="form-group mt-3">
                 <label>Password</label>
