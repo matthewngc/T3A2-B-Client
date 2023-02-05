@@ -1,7 +1,7 @@
 import React, { useState } from "react"
 import './styles/LoginPage.css'
 
-const Login = ({ userLogin }) => {
+const Login = ({ userLogin, registerUser }) => {
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
@@ -9,13 +9,15 @@ const Login = ({ userLogin }) => {
     const [mobile, setMobile] = useState('')
     const [isEmployer, setIsEmployer] = useState('')
 
-    function handleChange(isEmployer) {
-        // Need to make a function to convert isEmployer value to boolean
-    }
-
-    function submit(evt) {
+    function submitLogin(evt) {
         evt.preventDefault()
         userLogin(email, password)
+    }
+
+    function submitRegister(evt) {
+        evt.preventDefault()
+        registerUser(name, company, email, mobile, isEmployer, password)
+        // userLogin(email, password)
     }
 
     const [authMode, setAuthMode] = useState("signin")
@@ -26,7 +28,7 @@ const Login = ({ userLogin }) => {
     if (authMode === "signin") {
         return (
         <div className="Auth-form-container">
-            <form onSubmit={submit} className="Auth-form">
+            <form onSubmit={submitLogin} className="Auth-form">
             <div className="Auth-form-content">
                 <h3 className="Auth-form-title">Sign In</h3>
                 <div className="text-center">
@@ -72,7 +74,7 @@ const Login = ({ userLogin }) => {
 
     return (
         <div className="Auth-form-container">
-        <form className="Auth-form">
+        <form className="Auth-form" onSubmit={submitRegister}>
             <div className="Auth-form-content">
             <h3 className="Auth-form-title">Sign In</h3>
             <div className="text-center">
@@ -125,10 +127,10 @@ const Login = ({ userLogin }) => {
                 <label>Are you an Employer or a Jobseeker?</label>
                 <select
                 type="isEmployer"
-                value = {isEmployer} // need to check if this is right
                 onChange={(event) => setIsEmployer(event.target.value)}
                 className="form-control mt-1"
                 >
+                    <option>Select:</option>
                     <option value={true}>Employer</option>
                     <option value={false}>Jobseeker</option>
                 </select>
@@ -148,9 +150,9 @@ const Login = ({ userLogin }) => {
                 Submit
                 </button>
             </div>
-            <p className="text-center mt-2">
+            {/* <p className="text-center mt-2">
                 Forgot <a href="#">password?</a>
-            </p>
+            </p> */}
             </div>
         </form>
         </div>

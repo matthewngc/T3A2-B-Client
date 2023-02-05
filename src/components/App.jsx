@@ -57,7 +57,7 @@ const App = () => {
     return listing ? <EditListing listing={listing} isEdit={isEdit} editListing={editListing} deleteListing={deleteListing}/> : <h4>Job Listing not found</h4>
   }
 
-  // Login
+  // Login user
   const userLogin = async (email, password) => {
     try {
       const user = {
@@ -103,7 +103,55 @@ const App = () => {
   }
   }
 
-  // Employer dashboard
+  // Register user
+  const registerUser = async (name, company, email, password, isEmployer, mobile) => {
+    try {
+      const newUser = {
+        name: name,
+        company: company,
+        email: email,
+        password: password,
+        isEmployer: isEmployer,
+        // location: location,
+        mobile: mobile
+      }
+      console.log(newUser)
+      const returnedUser = await fetch('http://localhost:4002/auth/register', {
+        method: 'POST',
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        'body': JSON.stringify(newUser)
+      })
+      console.log(returnedUser)
+      const returnedObject = await returnedUser.json()
+      console.log(returnedObject)
+      if (!returnedObject.error) {
+        sessionStorage.setItem('name', returnedObject.name)
+        sessionStorage.setItem('company', returnedObject.company)
+        sessionStorage.setItem('email', returnedObject.email)
+        sessionStorage.setItem('id', returnedObject.id)
+        sessionStorage.setItem('token', returnedObject.token)
+        sessionStorage.setItem('mobile', returnedObject.mobile)
+        sessionStorage.setItem('isEmployer', returnedObject.isEmployer)
+        console.log(sessionStorage)
+        if (returnedObject.isEmployer) {
+          nav('/employer-dashboard')
+        } else {
+          nav('/job-seeker-dashboard')
+        }
+      } else {
+        console.log(returnedObject.error)
+      }
+    }
+  catch (err) {
+    console.log(err.message)
+  }
+}
+
+
+  // Jobseeker dashboard
   const [dashboardApplications, setDashboardApplications] = useState([])
   const [dashboardListings, setDashboardListings] = useState([])
 
@@ -124,7 +172,7 @@ const App = () => {
     getDashboardApplications()
   }, [])
 } else {
-    // Jobseeker dashboard
+    // Employer dashboard
     useEffect(() => {
       async function getDashboardListings() {
         const res = await fetch('http://localhost:4002/jobs/dashboard', {
@@ -174,6 +222,7 @@ const App = () => {
       // } else 
       // {
       jobListings.unshift(returnedObject)
+      dashboardListings.unshift(returnedObject)
 
       // setJobListings(...jobListings, returnedObject)
       nav(`/jobs/${returnedObject._id}`)
@@ -206,23 +255,25 @@ const App = () => {
           'body': JSON.stringify(editListing)
         })
 
-       const returnedObject = await returnedListing.json()
+        const returnedObject = await returnedListing.json()
 
-      //  if (returnedListing.status === 403) {
-      //   logoutMember()
-      //   nav('/jwt-expired')
-      //  } else {
-       const targetListingId = listing._id
+        //  if (returnedListing.status === 403) {
+        //   logoutMember()
+        //   nav('/jwt-expired')
+        //  } else {
+        const targetListingId = listing._id
 
-       const listingIndex = jobListings.findIndex(listing => targetListingId == listing._id)
+        const listingIndex = jobListings.findIndex(listing => targetListingId == listing._id)
 
-       jobListings.splice(listingIndex, 1, returnedObject)
-
-       setJobListings(jobListings)
+        jobListings.splice(listingIndex, 1, returnedObject)
+        dashboardListings.splice(listingIndex, 1, returnedObject)
+        setJobListings(jobListings)
+        setDashboardListings(dashboardListings)
+        console.log(setDashboardListings(dashboardListings))
 
       //  window.scrollTo(0,0)
-       nav(`/jobs/${targetListingId}`)
-       }
+        nav(`/jobs/${targetListingId}`)
+      }
       // }
       catch (err) {
         console.log(err.message)
@@ -248,6 +299,7 @@ const App = () => {
         const targetListingId = listing._id
         const listingIndex = jobListings.findIndex(listing => targetListingId == listing._id)
         jobListings.splice(listingIndex, 1)
+        dashboardListings.splice(listingIndex, 1)
         setJobListings(jobListings)
         nav('/employer-dashboard')
         
@@ -310,7 +362,7 @@ const App = () => {
         <Route path='/jobs/:id' element={<JobPostingPageWrapper />} />
         <Route path='/job-seeker-dashboard' element={<JobSeekerDashboard dashboardApplications={dashboardApplications} userDetails={sessionStorage}/>} />
         <Route path='/employer-dashboard' element={<EmployerDashboard dashboardListings={dashboardListings} userDetails={sessionStorage} />} /> 
-        <Route path='/login' element={<Login userLogin={userLogin}/>} />
+        <Route path='/login' element={<Login userLogin={userLogin} registerUser={registerUser}/>} />
         <Route path='/create-listing'
                element ={
                <CreateListing 
