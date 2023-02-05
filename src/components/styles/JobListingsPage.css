@@ -1,3 +1,7 @@
+.JobListingsPage {
+  min-height: 86vh;
+}
+
 table {
     width: 80%;
     margin: 0 auto;
