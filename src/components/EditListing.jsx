@@ -10,7 +10,7 @@ const EditListing = ({listing, editListing, isEdit }) => {
             </header> */}
             <ListingForm listing={listing} editListing={editListing} isEdit={isEdit} />
             <button>Delete Listing</button>
-            </div>
+        </div>
     </>
   )
 }
