@@ -45,6 +45,7 @@ const Login = ({ userLogin, registerUser }) => {
                     onChange={(event) => setEmail(event.target.value)}
                     className="form-control mt-1"
                     placeholder="Enter email"
+                    required
                 />
                 </div>
                 <div className="form-group mt-3">
@@ -55,6 +56,7 @@ const Login = ({ userLogin, registerUser }) => {
                     onChange={(event) => setPassword(event.target.value)}
                     className="form-control mt-1"
                     placeholder="Enter password"
+                    required
                 />
                 </div>
                 <div className="d-grid gap-2 mt-3">
@@ -111,6 +113,7 @@ const Login = ({ userLogin, registerUser }) => {
                 onChange={(event) => setEmail(event.target.value)}
                 className="form-control mt-1"
                 placeholder="Email Address"
+                required
                 />
             </div>
             <div className="form-group mt-3">
@@ -129,6 +132,7 @@ const Login = ({ userLogin, registerUser }) => {
                 type="isEmployer"
                 onChange={(event) => setIsEmployer(event.target.value)}
                 className="form-control mt-1"
+                required
                 >
                     <option>Select:</option>
                     <option value={true}>Employer</option>
@@ -143,6 +147,7 @@ const Login = ({ userLogin, registerUser }) => {
                 onChange={(event) => setPassword(event.target.value)}
                 className="form-control mt-1"
                 placeholder="Password"
+                required
                 />
             </div>
             <div className="d-grid gap-2 mt-3">
