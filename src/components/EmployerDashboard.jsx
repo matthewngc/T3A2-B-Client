@@ -71,7 +71,7 @@ const EmployerDashboard = ({ dashboardListings, dashboardApplications, userDetai
                 <Button variant="primary" edit='true'>Edit</Button>
               </Link>
               {/* <Button variant="primary">Delete</Button> */}
-              <Button variant="primary" href='/jobs/${listing.id}'applicants='true'>View Applicants</Button>
+              {/* <Button variant="primary" href='/jobs/${listing.id}'applicants='true'>View Applicants</Button> */}
             </td>
           </tr>
           ))}
