@@ -15,9 +15,7 @@ const JobPostingPage = ({ listing, submitApplication }) => {
       <h2>Requirements</h2>
       <ul>
         <li>{listing.education}</li>
-        <li>{listing.experience}</li>
-        <li>Strong communication skills</li>
-        <li>Ability to work independently and as part of a team</li>
+        <li>{listing.experience} years of prior experience</li>
       </ul>
       {/* application button */}
       <button onClick={() => submitApplication(listing)}>Apply</button>

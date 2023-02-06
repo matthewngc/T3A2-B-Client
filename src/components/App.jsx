@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { BrowserRouter, Routes, Route, useParams, useNavigate } from 'react-router-dom'
+import { Routes, Route, useParams, useNavigate } from 'react-router-dom'
 import EmployerDashboard from './EmployerDashboard'
 import JobListingsPage from './JobListingsPage'
 import JobPostingPage from './JobPostingPage'
@@ -13,7 +13,6 @@ import TermsOfUse from './TermsOfUse'
 import PrivacyPolicy from './Privacy'
 import ContactUs from './Contact'
 import Login from './LoginPage'
-import Application from './Application'
 import PageNotFound from './PageNotFound'
 import SessionExpired from './SessionExpired'
 
@@ -41,6 +40,13 @@ const App = () => {
 
   }, [])
 
+  // const [loggedInStatus, setLoggedInStatus] = useState(false)
+
+  // useEffect(() => {
+  //   if (sessionStorage.token) {
+  //     setLoggedInStatus(true)
+  //   }
+  // }, [setLoggedInStatus])
 
   // Higher Order Components
   const JobPostingPageWrapper = () => {
@@ -85,13 +91,7 @@ const App = () => {
       sessionStorage.setItem('id', userObject.id)
       sessionStorage.setItem('token', userObject.token)
       sessionStorage.setItem('isEmployer', userObject.isEmployer)
-      // userSessionKeys({
-      //   email: userObject.email,
-      //   id: userObject.id,
-      //   token: userObject.token
-      // })
     }
-    console.log(userObject.isEmployer)
     if (userObject.isEmployer) {
       nav('/employer-dashboard')
     } else {
@@ -133,6 +133,7 @@ const App = () => {
         sessionStorage.setItem('token', returnedObject.token)
         sessionStorage.setItem('isEmployer', returnedObject.isEmployer)
         console.log(sessionStorage)
+        setLoggedInMember(true)
         if (returnedObject.isEmployer) {
           nav('/employer-dashboard')
         } else {
@@ -156,6 +157,7 @@ const App = () => {
   const [dashboardApplications, setDashboardApplications] = useState([])
   const [dashboardListings, setDashboardListings] = useState([])
 
+  // if (loggedInStatus) {
   async function getDashboardApplications() {
     const res = await fetch('http://localhost:4002/applications/dashboard', {
       method: 'GET',
@@ -200,7 +202,7 @@ const App = () => {
         getDashboardApplications()
       }, [])
   }
-
+// }
   // Create Listing
   const submitListing = async (title,description,company,location,education,experience) => {
     try {

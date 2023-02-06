@@ -1,13 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { Button, Form, FormControl } from "react-bootstrap";
 import './styles/EmployerDashboard.css'
+import { useNavigate } from 'react-router-dom';
 
 
 const EmployerDashboard = ({ dashboardListings, deleteListing, dashboardApplications, userDetails, editApplicationStatus, deleteApplication }) => {
   console.log(userDetails)
   console.log(dashboardListings)
   console.log(dashboardApplications)
+
+  const nav = useNavigate()
+  useEffect(() => {
+  if (!JSON.parse(sessionStorage.isEmployer)) {
+    nav('/pagenotfound')
+  }
+  })
+
   const [locationFilter, setLocationFilter] = useState("");
   // const [applicationStatus, setApplicationStatus] = useState("")
 

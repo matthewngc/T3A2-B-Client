@@ -1,10 +1,16 @@
-import React from 'react';
+import React, {useEffect} from 'react';
+import { useNavigate } from 'react-router-dom';
 import './styles/JobSeekerDashboard.css'
 
-const JobSeekerDashboard = ({ dashboardApplications, userDetails}) => {
+const JobSeekerDashboard = ({ dashboardApplications, userDetails }) => {
 
-  console.log(userDetails)
-  console.log({ dashboardApplications })
+  const nav = useNavigate()
+  useEffect(() => {
+  if (JSON.parse(sessionStorage.isEmployer)) {
+    nav('/pagenotfound')
+  }
+  })
+
   return (
     <div className="JobSeekerDashboard">
       <h1>Job Seeker Dashboard</h1>
@@ -42,5 +48,13 @@ const JobSeekerDashboard = ({ dashboardApplications, userDetails}) => {
     </div>
   );
 };
+
+
+// return (
+//   <>
+//   <h1>You do not have permission to view this page!</h1>
+//   </>
+// )
+// }
 
 export default JobSeekerDashboard;
