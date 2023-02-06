@@ -191,40 +191,6 @@ const App = () => {
         getDashboardApplications()
       }, [])
   }
-//   if (sessionStorage.isEmployer &&! JSON.parse(sessionStorage.isEmployer)) {
-//   useEffect(() => {
-//     async function getDashboardApplications() {
-//       const res = await fetch('http://localhost:4002/applications/dashboard', {
-//         method: 'GET',
-//         headers: {
-//           'Accept': 'application/json',
-//           'authorization': 'Bearer ' + sessionStorage.token
-//         }
-//       })
-//       const data = await res.json()
-//       console.log(data)
-//       setDashboardApplications(data)
-//     }
-//     getDashboardApplications()
-//   }, [])
-// } else {
-//     // Employer dashboard
-//     useEffect(() => {
-//       async function getDashboardListings() {
-//         const res = await fetch('http://localhost:4002/jobs/dashboard', {
-//           method: 'GET',
-//           headers: {
-//             'Accept': 'application/json',
-//             'authorization': 'Bearer ' + sessionStorage.token
-//           }
-//         })
-//         const data = await res.json()
-//         console.log(data)
-//         setDashboardListings(data)
-//       }
-//       getDashboardListings()
-//     }, [])
-// }
 
   // Create Listing
   const submitListing = async (title,description,company,location,education,experience) => {
@@ -373,23 +339,36 @@ const App = () => {
       }
     }
 
-  // Employer dashboard
-  // const [dashboardApplications, setDashboardApplications] = useState([])
-  // useEffect(() => {
-  //   async function getDashboardApplications() {
-  //     const res = await fetch('http://localhost:4002/applications/dashboard', {
-  //       method: 'GET',
-  //       headers: {
-  //         'Accept': 'application/json',
-  //         'authorization': 'Bearer ' + sessionStorage.token
-  //       }
-  //     })
-  //     const data = await res.json()
-  //     console.log(data)
-  //     setDashboardApplications(data)
-  //   }
-  //   getDashboardApplications()
-  // }, [])
+    const editApplicationStatus = async (status, application) => {
+      try {
+        const newStatus = {
+          status: status
+        }
+        console.log(newStatus)
+        console.log(application._id)
+        const returnedStatus = await fetch(`http://localhost:4002/applications/${application._id}`, {
+          method: 'PUT',
+          mode: 'no-cors',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer ' + sessionStorage.token
+          },
+          'body': JSON.stringify(newStatus)
+        })
+        // if (!returnedStatus.ok) {
+        //   throw new Error(`HTTP error! status: ${returnedStatus.status}`)
+        // }
+        const returnedObject = await returnedStatus.json()
+        console.log(returnedObject)
+        const targetApplicationId = application._id
+        const applicationIndex = applications.findIndex(application => targetApplicationId == application._id)
+        dashboardApplications.splice(applicationIndex, 1, returnedObject)
+      }
+      catch (err) {
+        console.log(err.message)
+      }
+    }
 
   return (
     <>
@@ -399,7 +378,7 @@ const App = () => {
         <Route path='/jobs' element={<JobListingsPage jobListings={jobListings}/>} />
         <Route path='/jobs/:id' element={<JobPostingPageWrapper />} />
         <Route path='/job-seeker-dashboard' element={<JobSeekerDashboard dashboardApplications={dashboardApplications} userDetails={sessionStorage}/>} />
-        <Route path='/employer-dashboard' element={<EmployerDashboard dashboardListings={dashboardListings} dashboardApplications={dashboardApplications} userDetails={sessionStorage} />} /> 
+        <Route path='/employer-dashboard' element={<EmployerDashboard dashboardListings={dashboardListings} dashboardApplications={dashboardApplications} userDetails={sessionStorage} editApplicationStatus={editApplicationStatus} />} /> 
         <Route path='/login' element={<Login userLogin={userLogin} registerUser={registerUser}/>} />
         <Route path='/create-listing'
                element ={
