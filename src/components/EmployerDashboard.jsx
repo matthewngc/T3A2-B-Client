@@ -6,9 +6,6 @@ import { useNavigate } from 'react-router-dom';
 
 
 const EmployerDashboard = ({ dashboardListings, deleteListing, dashboardApplications, userDetails, editApplicationStatus, deleteApplication }) => {
-  console.log(userDetails)
-  console.log(dashboardListings)
-  console.log(dashboardApplications)
 
   const nav = useNavigate()
   useEffect(() => {
@@ -32,7 +29,6 @@ const EmployerDashboard = ({ dashboardListings, deleteListing, dashboardApplicat
 
   function updateStatus(evt, application) {
     // evt.preventDefault()
-    console.log(status)
     editApplicationStatus(status, application)
   }
   // function changeStatus(evt) {
