@@ -8,7 +8,6 @@ import NavBar from "./NavBar";
 import CreateListing from './ListingForm'
 import EditListing from './EditListing'
 import LandingPage from './LandingPage'
-// import LoginPage from './LoginPage'
 import Footer from './Footer'
 import TermsOfUse from './TermsOfUse'
 import PrivacyPolicy from './Privacy'
@@ -85,7 +84,6 @@ const App = () => {
       sessionStorage.setItem('email', userObject.email)
       sessionStorage.setItem('id', userObject.id)
       sessionStorage.setItem('token', userObject.token)
-      sessionStorage.setItem('mobile', userObject.mobile)
       sessionStorage.setItem('isEmployer', userObject.isEmployer)
       // userSessionKeys({
       //   email: userObject.email,
@@ -106,7 +104,7 @@ const App = () => {
   }
 
   // Register user
-  const registerUser = async (name, company, email, password, isEmployer, mobile) => {
+  const registerUser = async (name, company, email, password, isEmployer) => {
     try {
       const newUser = {
         name: name,
@@ -114,8 +112,6 @@ const App = () => {
         email: email,
         password: password,
         isEmployer: isEmployer,
-        // location: location,
-        mobile: mobile
       }
       console.log(newUser)
       const returnedUser = await fetch('http://localhost:4002/auth/register', {
@@ -135,7 +131,6 @@ const App = () => {
         sessionStorage.setItem('email', returnedObject.email)
         sessionStorage.setItem('id', returnedObject.id)
         sessionStorage.setItem('token', returnedObject.token)
-        sessionStorage.setItem('mobile', returnedObject.mobile)
         sessionStorage.setItem('isEmployer', returnedObject.isEmployer)
         console.log(sessionStorage)
         if (returnedObject.isEmployer) {
@@ -152,7 +147,9 @@ const App = () => {
   }
 }
 
-  // const logoutUser = async ()
+  function logoutUser() {
+    sessionStorage.clear()
+  }
 
 
   // Jobseeker & Employer dashboard
@@ -167,6 +164,10 @@ const App = () => {
         'authorization': 'Bearer ' + sessionStorage.token
       }
     })
+    if (res.status === 401) {
+      logoutUser()
+      nav('/session-expired')
+    }
     const data = await res.json()
     console.log(data)
     setDashboardApplications(data)
@@ -187,6 +188,10 @@ const App = () => {
               'authorization': 'Bearer ' + sessionStorage.token
             }
           })
+          if (res.status === 401) {
+            logoutUser()
+            nav('/session-expired')
+          } 
           const data = await res.json()
           console.log(data)
           setDashboardListings(data)
@@ -218,6 +223,10 @@ const App = () => {
         },
         'body': JSON.stringify(newListing)
       })
+      if (returnedListing.status === 401) {
+        logoutUser()
+        nav('/session-expired')
+      } 
       console.log(returnedListing) 
       console.log(returnedListing.status)
       const returnedObject = await returnedListing.json()
@@ -260,6 +269,10 @@ const App = () => {
           },
           'body': JSON.stringify(editListing)
         })
+        if (returnedListing.status === 401) {
+          logoutUser()
+          nav('/session-expired')
+        } 
 
         const returnedObject = await returnedListing.json()
 
@@ -298,10 +311,10 @@ const App = () => {
             'authorization': 'Bearer ' + sessionStorage.token
           }
         })
-        // if (returnedListing.status === 403) {  
-        //   logoutMember()
-        //   nav('/jwt-expired')
-        // } else {
+        if (returnedPost.status === 401) {  
+          logoutMember()
+          nav('/session-expired')
+        }
         const targetListingId = listing._id
         const listingIndex = jobListings.findIndex(listing => targetListingId == listing._id)
         jobListings.splice(listingIndex, 1)
@@ -332,6 +345,10 @@ const App = () => {
           },
           'body': JSON.stringify(newApplication)
         })
+        if (returnedApplication.status === 401) {
+          logoutUser()
+          nav('/session-expired')
+        } 
         console.log(returnedApplication)
         const returnedObject = await returnedApplication.json()
         dashboardApplications.unshift(returnedObject)
@@ -361,6 +378,10 @@ const App = () => {
           },
           'body': JSON.stringify(newStatus)
         })
+        if (res.status === 401) {
+          logoutUser()
+          nav('/session-expired')
+        } 
         // if (!returnedStatus.ok) {
         //   throw new Error(`HTTP error! status: ${returnedStatus.status}`)
         // }
@@ -387,6 +408,10 @@ const App = () => {
             'authorization': 'Bearer ' + sessionStorage.token
           }
         })
+        if (res.status === 401) {
+          logoutUser()
+          nav('/session-expired')
+        } 
         console.log(returnedApplication)
         // if (returnedListing.status === 403) {  
         //   logoutMember()
@@ -412,32 +437,84 @@ const App = () => {
     <>
       <NavBar />
       <Routes>
-        <Route path='/' element={<LandingPage />} />
-        <Route path='/jobs' element={<JobListingsPage jobListings={jobListings}/>} />
-        <Route path='/jobs/:id' element={<JobPostingPageWrapper />} />
-        <Route path='/job-seeker-dashboard' element={<JobSeekerDashboard dashboardApplications={dashboardApplications} userDetails={sessionStorage}/>} />
-        <Route path='/employer-dashboard' element={<EmployerDashboard 
-                                                      dashboardListings={dashboardListings} 
-                                                      deleteListing={deleteListing} 
-                                                      dashboardApplications={dashboardApplications} 
-                                                      userDetails={sessionStorage} 
-                                                      editApplicationStatus={editApplicationStatus}
-                                                      deleteApplication={deleteApplication} />} /> 
-        <Route path='/login' element={<Login userLogin={userLogin} registerUser={registerUser}/>} />
-        <Route path='/create-listing'
-               element ={
-               <CreateListing 
-               
-               submitListing={submitListing}
-               />
-               } 
-               />
-        <Route path='/jobs/:id/edit-listing' element ={<EditListingWrapper editListing={editListing}/>} />
-        <Route path='/terms-of-use' element ={<TermsOfUse />} />
-        <Route path='/privacy' element ={<PrivacyPolicy />} />
-        <Route path='/contact' element ={<ContactUs />} />
-        <Route path='/pagenotfound' element ={<PageNotFound />} />
-        <Route path='/session-expired' element ={<SessionExpired />} />
+        <Route 
+          path='/' 
+            element={<LandingPage 
+          />} 
+        />
+        <Route 
+          path='/jobs' 
+            element={<JobListingsPage 
+            jobListings={jobListings}
+          />} 
+        />
+        <Route 
+          path='/jobs/:id' 
+            element={<JobPostingPageWrapper 
+          />} 
+        />
+        <Route 
+          path='/job-seeker-dashboard' 
+            element={<JobSeekerDashboard 
+              dashboardApplications={dashboardApplications} 
+              userDetails={sessionStorage}
+          />} 
+        />
+        <Route 
+          path='/employer-dashboard' 
+            element={<EmployerDashboard 
+              dashboardListings={dashboardListings} 
+              deleteListing={deleteListing} 
+              dashboardApplications={dashboardApplications} 
+              userDetails={sessionStorage} 
+              editApplicationStatus={editApplicationStatus}
+              deleteApplication={deleteApplication} 
+            />} 
+        /> 
+        <Route 
+          path='/login' 
+            element={<Login 
+              userLogin={userLogin} 
+              registerUser={registerUser}
+            />} 
+        />
+        <Route 
+          path='/create-listing'
+            element ={<CreateListing 
+              submitListing={submitListing}
+            />} 
+        />
+        <Route 
+          path='/jobs/:id/edit-listing' 
+            element ={<EditListingWrapper 
+              editListing={editListing}
+            />} 
+          />
+        <Route 
+          path='/terms-of-use' 
+            element ={<TermsOfUse 
+          />} 
+        />
+        <Route 
+          path='/privacy' 
+            element ={<PrivacyPolicy 
+          />} 
+        />
+        <Route 
+          path='/contact' 
+            element ={<ContactUs 
+          />} 
+        />
+        <Route 
+          path='/pagenotfound' 
+            element ={<PageNotFound 
+          />} 
+        />
+        <Route 
+          path='/session-expired' 
+            element ={<SessionExpired 
+          />} 
+        />
       </Routes>
       <Footer />
     </>

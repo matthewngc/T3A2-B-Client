@@ -37,9 +37,7 @@ const JobSeekerDashboard = ({ dashboardApplications, userDetails}) => {
         <div>
           <p>Name: {userDetails.name}</p>
           <p>Email: {userDetails.email}</p>
-          <p>Mobile: {userDetails.mobile}</p>
         </div>
-        <button>Edit Profile</button>
       </div>
     </div>
   );

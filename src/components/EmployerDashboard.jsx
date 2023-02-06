@@ -40,10 +40,8 @@ const EmployerDashboard = ({ dashboardListings, deleteListing, dashboardApplicat
           <li>
             <p>Name: {userDetails.company}</p>
             <p>Email: {userDetails.email}</p>
-            <p>Number: {userDetails.mobile}</p>
           </li>
         </ul>
-        <Button variant="primary">Edit Information</Button>
       </div>
       <Button variant="primary" href='/create-listing'>Create New Listing</Button>
       <hr></hr>
