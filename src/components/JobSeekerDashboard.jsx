@@ -2,11 +2,7 @@ import React from 'react';
 import './styles/JobSeekerDashboard.css'
 
 const JobSeekerDashboard = ({ dashboardApplications, userDetails}) => {
-  // const jobListings = [
-  //   { title: "Software Engineer", status: "Pending" },
-  //   { title: "Data Analyst", status: "Accepted" },
-  //   { title: "UX Designer", status: "Rejected" },
-  // ];
+
   console.log(userDetails)
   console.log({ dashboardApplications })
   return (
