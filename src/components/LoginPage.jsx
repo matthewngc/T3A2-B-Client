@@ -116,7 +116,7 @@ const Login = ({ userLogin, registerUser }) => {
                 required
                 />
             </div>
-            <div className="form-group mt-3">
+            {/* <div className="form-group mt-3">
                 <label>Mobile</label>
                 <input
                 type="mobile"
@@ -125,7 +125,7 @@ const Login = ({ userLogin, registerUser }) => {
                 className="form-control mt-1"
                 placeholder="Mobile"
                 />
-            </div>
+            </div> */}
             <div className="form-group mt-3">
                 <label>Are you an Employer or a Jobseeker?</label>
                 <select
