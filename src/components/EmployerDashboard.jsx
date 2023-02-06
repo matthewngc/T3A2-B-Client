@@ -1,13 +1,22 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { Button, Form, FormControl } from "react-bootstrap";
 import './styles/EmployerDashboard.css'
+import { useNavigate } from 'react-router-dom';
 
 
 const EmployerDashboard = ({ dashboardListings, deleteListing, dashboardApplications, userDetails, editApplicationStatus, deleteApplication }) => {
   console.log(userDetails)
   console.log(dashboardListings)
   console.log(dashboardApplications)
+
+  const nav = useNavigate()
+  useEffect(() => {
+  if (!JSON.parse(sessionStorage.isEmployer)) {
+    nav('/pagenotfound')
+  }
+  })
+
   const [locationFilter, setLocationFilter] = useState("");
   // const [applicationStatus, setApplicationStatus] = useState("")
 
@@ -40,10 +49,8 @@ const EmployerDashboard = ({ dashboardListings, deleteListing, dashboardApplicat
           <li>
             <p>Name: {userDetails.company}</p>
             <p>Email: {userDetails.email}</p>
-            <p>Number: {userDetails.mobile}</p>
           </li>
         </ul>
-        <Button variant="primary">Edit Information</Button>
       </div>
       <Button variant="primary" href='/create-listing'>Create New Listing</Button>
       <hr></hr>
