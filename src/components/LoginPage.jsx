@@ -6,7 +6,6 @@ const Login = ({ userLogin, registerUser }) => {
     const [password, setPassword] = useState('')
     const [name, setName] = useState('')
     const [company, setCompany] = useState('')
-    const [mobile, setMobile] = useState('')
     const [isEmployer, setIsEmployer] = useState('')
 
     function submitLogin(evt) {
@@ -16,7 +15,7 @@ const Login = ({ userLogin, registerUser }) => {
 
     function submitRegister(evt) {
         evt.preventDefault()
-        registerUser(name, company, email, mobile, isEmployer, password)
+        registerUser(name, company, email, isEmployer, password)
         // userLogin(email, password)
     }
 
@@ -117,16 +116,6 @@ const Login = ({ userLogin, registerUser }) => {
                 />
             </div>
             <div className="form-group mt-3">
-                <label>Mobile</label>
-                <input
-                type="mobile"
-                value = {mobile}
-                onChange={(event) => setMobile(event.target.value)}
-                className="form-control mt-1"
-                placeholder="Mobile"
-                />
-            </div>
-            <div className="form-group mt-3">
                 <label>Are you an Employer or a Jobseeker?</label>
                 <select
                 type="isEmployer"
@@ -155,9 +144,6 @@ const Login = ({ userLogin, registerUser }) => {
                 Submit
                 </button>
             </div>
-            {/* <p className="text-center mt-2">
-                Forgot <a href="#">password?</a>
-            </p> */}
             </div>
         </form>
         </div>
