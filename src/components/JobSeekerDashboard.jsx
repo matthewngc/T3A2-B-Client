@@ -7,7 +7,7 @@ const JobSeekerDashboard = ({ dashboardApplications, userDetails }) => {
   const nav = useNavigate()
   useEffect(() => {
   if (JSON.parse(sessionStorage.isEmployer)) {
-    nav('/pagenotfound')
+    nav('/access-denied')
   }
   })
 

@@ -13,7 +13,7 @@ const EmployerDashboard = ({ dashboardListings, deleteListing, dashboardApplicat
   const nav = useNavigate()
   useEffect(() => {
   if (!JSON.parse(sessionStorage.isEmployer)) {
-    nav('/pagenotfound')
+    nav('/access-denied')
   }
   })
 
