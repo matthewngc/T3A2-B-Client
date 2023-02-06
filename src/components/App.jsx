@@ -16,6 +16,7 @@ import ContactUs from './Contact'
 import Login from './LoginPage'
 import Application from './Application'
 import PageNotFound from './PageNotFound'
+import SessionExpired from './SessionExpired'
 
 const App = () => {
   const nav = useNavigate()
@@ -150,6 +151,8 @@ const App = () => {
     console.log(err.message)
   }
 }
+
+  // const logoutUser = async ()
 
 
   // Jobseeker & Employer dashboard
@@ -434,6 +437,7 @@ const App = () => {
         <Route path='/privacy' element ={<PrivacyPolicy />} />
         <Route path='/contact' element ={<ContactUs />} />
         <Route path='/pagenotfound' element ={<PageNotFound />} />
+        <Route path='/session-expired' element ={<SessionExpired />} />
       </Routes>
       <Footer />
     </>
