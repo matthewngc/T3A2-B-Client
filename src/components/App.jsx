@@ -15,6 +15,7 @@ import PrivacyPolicy from './Privacy'
 import ContactUs from './Contact'
 import Login from './LoginPage'
 import Application from './Application'
+import PageNotFound from './PageNotFound'
 
 const App = () => {
   const nav = useNavigate()
@@ -432,6 +433,7 @@ const App = () => {
         <Route path='/terms-of-use' element ={<TermsOfUse />} />
         <Route path='/privacy' element ={<PrivacyPolicy />} />
         <Route path='/contact' element ={<ContactUs />} />
+        <Route path='/pagenotfound' element ={<PageNotFound />} />
       </Routes>
       <Footer />
     </>
