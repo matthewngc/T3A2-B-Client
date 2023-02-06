@@ -303,6 +303,7 @@ const App = () => {
         jobListings.splice(listingIndex, 1)
         dashboardListings.splice(listingIndex, 1)
         setJobListings(jobListings)
+        setDashboardListings(dashboardListings)
         nav('/employer-dashboard')
         
       }
@@ -378,7 +379,7 @@ const App = () => {
         <Route path='/jobs' element={<JobListingsPage jobListings={jobListings}/>} />
         <Route path='/jobs/:id' element={<JobPostingPageWrapper />} />
         <Route path='/job-seeker-dashboard' element={<JobSeekerDashboard dashboardApplications={dashboardApplications} userDetails={sessionStorage}/>} />
-        <Route path='/employer-dashboard' element={<EmployerDashboard dashboardListings={dashboardListings} dashboardApplications={dashboardApplications} userDetails={sessionStorage} editApplicationStatus={editApplicationStatus} />} /> 
+        <Route path='/employer-dashboard' element={<EmployerDashboard dashboardListings={dashboardListings} deleteListing={deleteListing} dashboardApplications={dashboardApplications} userDetails={sessionStorage} editApplicationStatus={editApplicationStatus} />} /> 
         <Route path='/login' element={<Login userLogin={userLogin} registerUser={registerUser}/>} />
         <Route path='/create-listing'
                element ={
