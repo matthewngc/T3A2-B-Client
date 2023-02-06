@@ -33,7 +33,7 @@ describe("JobSeekerDashboard component", () => {
         />
         );
 
-        const welcomeMessage = getByText(/Welcome back, Jane Doe!/i);
+        const welcomeMessage = getByText(/Welcome back, Timothy Nguyen!/i);
         const tableHeaders = [ getByText(/Job Title/i),
                                 getByText(/Status/i),
                                 getByText(/Action/i)
