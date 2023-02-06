@@ -4,11 +4,12 @@ import { Button, Form, FormControl } from "react-bootstrap";
 import './styles/EmployerDashboard.css'
 
 
-const EmployerDashboard = ({ dashboardListings, dashboardApplications, userDetails }) => {
+const EmployerDashboard = ({ dashboardListings, dashboardApplications, userDetails, editApplicationStatus }) => {
   console.log(userDetails)
   console.log(dashboardListings)
   console.log(dashboardApplications)
   const [locationFilter, setLocationFilter] = useState("");
+  // const [applicationStatus, setApplicationStatus] = useState("")
 
   const handleLocationFilter = (event) => {
     setLocationFilter(event.target.value);
@@ -17,6 +18,18 @@ const EmployerDashboard = ({ dashboardListings, dashboardApplications, userDetai
   const filteredListings = dashboardListings.filter(
     (listing) => listing.location === locationFilter || locationFilter === ""
   );
+
+  const [status, setStatus] = useState("")
+
+  function updateStatus(evt, application) {
+    // evt.preventDefault()
+    console.log(status)
+    editApplicationStatus(status, application)
+  }
+  // function changeStatus(evt) {
+  //   evt.preventDefault()
+  //   editApplicationStatus(status)
+  // }
 
   return (
     <div className='EmployerDashboard'>
@@ -99,7 +112,19 @@ const EmployerDashboard = ({ dashboardListings, dashboardApplications, userDetai
               <td>{application.applicant.email}</td>
               <td>{application.status}</td>
               <td>
+                <form onSubmit={(evt) => updateStatus(evt,application)}>
+                <select 
+                  className="form-control mt-1"
+                  onChange={(event) => setStatus(event.target.value)}
+                >
+                  <option>Change Status</option>
+                  <option value="Pending">Pending</option>
+                  <option value="Rejected">Rejected</option>
+                  <option value="Shortlisted">Shortlisted</option>
+                </select>
+                <button type="submit">Update Status</button>
                 <button>Delete</button>
+                </form>
               </td>
             </tr>
           ))}
