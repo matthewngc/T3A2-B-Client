@@ -4,7 +4,7 @@ import { Button, Form, FormControl } from "react-bootstrap";
 import './styles/EmployerDashboard.css'
 
 
-const EmployerDashboard = ({ dashboardListings, dashboardApplications, userDetails, editApplicationStatus }) => {
+const EmployerDashboard = ({ dashboardListings, deleteListing, dashboardApplications, userDetails, editApplicationStatus }) => {
   console.log(userDetails)
   console.log(dashboardListings)
   console.log(dashboardApplications)
@@ -83,7 +83,7 @@ const EmployerDashboard = ({ dashboardListings, dashboardApplications, userDetai
               <Link to={`/jobs/${listing._id}/edit-listing`}>
                 <Button variant="primary" edit='true'>Edit</Button>
               </Link>
-              {/* <Button variant="primary">Delete</Button> */}
+              <Button onClick={() => deleteListing(listing)} variant="primary">Delete</Button>
               {/* <Button variant="primary" href='/jobs/${listing.id}'applicants='true'>View Applicants</Button> */}
             </td>
           </tr>
@@ -107,10 +107,10 @@ const EmployerDashboard = ({ dashboardListings, dashboardApplications, userDetai
         <tbody>
           {dashboardApplications.map((application, index) => (
             <tr key={index}>
-              <td>{application.listing.title}</td>
-              <td>{application.applicant.name}</td>
-              <td>{application.applicant.email}</td>
-              <td>{application.status}</td>
+              <td>{null ? '' : application.listing.title}</td>
+              <td>{null ? '' : application.applicant.name}</td>
+              <td>{null ? '' : application.applicant.email}</td>
+              <td>{null ? '' : application.status}</td>
               <td>
                 <form onSubmit={(evt) => updateStatus(evt,application)}>
                 <select 
