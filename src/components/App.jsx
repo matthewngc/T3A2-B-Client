@@ -8,7 +8,7 @@ import NavBar from "./NavBar";
 import CreateListing from './ListingForm'
 import EditListing from './EditListing'
 import LandingPage from './LandingPage'
-import LoginPage from './LoginPage'
+// import LoginPage from './LoginPage'
 import Footer from './Footer'
 import TermsOfUse from './TermsOfUse'
 import PrivacyPolicy from './Privacy'
@@ -151,44 +151,80 @@ const App = () => {
 }
 
 
-  // Jobseeker dashboard
+  // Jobseeker & Employer dashboard
   const [dashboardApplications, setDashboardApplications] = useState([])
   const [dashboardListings, setDashboardListings] = useState([])
 
-  if (sessionStorage.isEmployer &&! JSON.parse(sessionStorage.isEmployer)) {
-  useEffect(() => {
-    async function getDashboardApplications() {
-      const res = await fetch('http://localhost:4002/applications/dashboard', {
-        method: 'GET',
-        headers: {
-          'Accept': 'application/json',
-          'authorization': 'Bearer ' + sessionStorage.token
-        }
-      })
-      const data = await res.json()
-      console.log(data)
-      setDashboardApplications(data)
-    }
-    getDashboardApplications()
-  }, [])
-} else {
-    // Employer dashboard
-    useEffect(() => {
-      async function getDashboardListings() {
-        const res = await fetch('http://localhost:4002/jobs/dashboard', {
-          method: 'GET',
-          headers: {
-            'Accept': 'application/json',
-            'authorization': 'Bearer ' + sessionStorage.token
-          }
-        })
-        const data = await res.json()
-        console.log(data)
-        setDashboardListings(data)
+  async function getDashboardApplications() {
+    const res = await fetch('http://localhost:4002/applications/dashboard', {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json',
+        'authorization': 'Bearer ' + sessionStorage.token
       }
-      getDashboardListings()
+    })
+    const data = await res.json()
+    console.log(data)
+    setDashboardApplications(data)
+  }
+
+  if (sessionStorage.isEmployer &&! JSON.parse(sessionStorage.isEmployer)) {
+    useEffect(() => {
+      getDashboardApplications()
     }, [])
-}
+  } else {
+      // Employer dashboard
+      useEffect(() => {
+        async function getDashboardListings() {
+          const res = await fetch('http://localhost:4002/jobs/dashboard', {
+            method: 'GET',
+            headers: {
+              'Accept': 'application/json',
+              'authorization': 'Bearer ' + sessionStorage.token
+            }
+          })
+          const data = await res.json()
+          console.log(data)
+          setDashboardListings(data)
+        }
+        getDashboardListings()
+        getDashboardApplications()
+      }, [])
+  }
+//   if (sessionStorage.isEmployer &&! JSON.parse(sessionStorage.isEmployer)) {
+//   useEffect(() => {
+//     async function getDashboardApplications() {
+//       const res = await fetch('http://localhost:4002/applications/dashboard', {
+//         method: 'GET',
+//         headers: {
+//           'Accept': 'application/json',
+//           'authorization': 'Bearer ' + sessionStorage.token
+//         }
+//       })
+//       const data = await res.json()
+//       console.log(data)
+//       setDashboardApplications(data)
+//     }
+//     getDashboardApplications()
+//   }, [])
+// } else {
+//     // Employer dashboard
+//     useEffect(() => {
+//       async function getDashboardListings() {
+//         const res = await fetch('http://localhost:4002/jobs/dashboard', {
+//           method: 'GET',
+//           headers: {
+//             'Accept': 'application/json',
+//             'authorization': 'Bearer ' + sessionStorage.token
+//           }
+//         })
+//         const data = await res.json()
+//         console.log(data)
+//         setDashboardListings(data)
+//       }
+//       getDashboardListings()
+//     }, [])
+// }
 
   // Create Listing
   const submitListing = async (title,description,company,location,education,experience) => {
@@ -361,7 +397,7 @@ const App = () => {
         <Route path='/jobs' element={<JobListingsPage jobListings={jobListings}/>} />
         <Route path='/jobs/:id' element={<JobPostingPageWrapper />} />
         <Route path='/job-seeker-dashboard' element={<JobSeekerDashboard dashboardApplications={dashboardApplications} userDetails={sessionStorage}/>} />
-        <Route path='/employer-dashboard' element={<EmployerDashboard dashboardListings={dashboardListings} userDetails={sessionStorage} />} /> 
+        <Route path='/employer-dashboard' element={<EmployerDashboard dashboardListings={dashboardListings} dashboardApplications={dashboardApplications} userDetails={sessionStorage} />} /> 
         <Route path='/login' element={<Login userLogin={userLogin} registerUser={registerUser}/>} />
         <Route path='/create-listing'
                element ={

@@ -4,9 +4,10 @@ import { Button, Form, FormControl } from "react-bootstrap";
 import './styles/EmployerDashboard.css'
 
 
-const EmployerDashboard = ({ dashboardListings, userDetails }) => {
+const EmployerDashboard = ({ dashboardListings, dashboardApplications, userDetails }) => {
   console.log(userDetails)
   console.log(dashboardListings)
+  console.log(dashboardApplications)
   const [locationFilter, setLocationFilter] = useState("");
 
   const handleLocationFilter = (event) => {
@@ -78,8 +79,32 @@ const EmployerDashboard = ({ dashboardListings, userDetails }) => {
         </tbody>
       </table>
       <hr></hr>
-      {/* employer information */}
-
+      {/* Applications */}
+      <h2>Applications</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Job Title</th>
+            <th>Applicant</th>
+            <th>Contact</th>
+            <th>Status</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {dashboardApplications.map((application, index) => (
+            <tr key={index}>
+              <td>{application.listing.title}</td>
+              <td>{application.applicant.name}</td>
+              <td>{application.applicant.email}</td>
+              <td>{application.status}</td>
+              <td>
+                <button>Delete</button>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };
