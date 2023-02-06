@@ -438,6 +438,7 @@ const App = () => {
         <Route path='/contact' element ={<ContactUs />} />
         <Route path='/pagenotfound' element ={<PageNotFound />} />
         <Route path='/session-expired' element ={<SessionExpired />} />
+        <Route path='/access-denied' element = {<AccessDenied />} />
       </Routes>
       <Footer />
     </>
