@@ -8,7 +8,6 @@ const LandingPage = () => {
       <Container>
         <Row>
           <Col className="text-center">
-            {/* <h1 className="title">Welcome to Steve's Jobs</h1> */}
             <img className="img-fluid" src="src/assets/steves-jobs-main.png" alt="Steve's Jobs logo"/>
             <p className="subtitle">
               Find your dream job or post a job listing and start your journey today.

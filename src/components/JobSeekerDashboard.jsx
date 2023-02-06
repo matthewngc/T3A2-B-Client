@@ -7,7 +7,7 @@ const JobSeekerDashboard = ({ dashboardApplications, userDetails }) => {
   const nav = useNavigate()
   useEffect(() => {
   if (JSON.parse(sessionStorage.isEmployer)) {
-    nav('/pagenotfound')
+    nav('/access-denied')
   }
   })
 
@@ -15,7 +15,6 @@ const JobSeekerDashboard = ({ dashboardApplications, userDetails }) => {
     <div className="JobSeekerDashboard">
       <h1>Job Seeker Dashboard</h1>
       <p>Welcome back, {userDetails.name}!</p>
-      {/* application status */}
       <h2>Applications:</h2>
       <table>
         <thead>
@@ -37,7 +36,6 @@ const JobSeekerDashboard = ({ dashboardApplications, userDetails }) => {
           ))}
         </tbody>
       </table>
-      {/* profile information */}
       <div className="ProfileInformation">
         <h2>Profile Information</h2>
         <div>
@@ -48,13 +46,5 @@ const JobSeekerDashboard = ({ dashboardApplications, userDetails }) => {
     </div>
   );
 };
-
-
-// return (
-//   <>
-//   <h1>You do not have permission to view this page!</h1>
-//   </>
-// )
-// }
 
 export default JobSeekerDashboard;

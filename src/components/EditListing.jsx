@@ -11,9 +11,6 @@ const EditListing = ({listing, editListing, isEdit, deleteListing }) => {
   return (
     <>
         <div>
-            {/* <header>
-                headingText={'Edit Listing'}
-            </header> */}
             <ListingForm listing={listing} editListing={editListing} isEdit={isEdit} />
             <button onClick ={submitDelete}>Delete Listing</button>
             </div>
