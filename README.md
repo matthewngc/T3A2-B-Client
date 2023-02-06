@@ -13,7 +13,7 @@ Steve's Jobs is a MERN stack application and is deployed on Railway and Netlify.
 
 ---
 
-Deployed Application: []()
+Deployed Application: [https://t3a2-b-client-production.up.railway.app/](https://t3a2-b-client-production.up.railway.app/)
 
 Deployed Backend: [https://t3a2-b-server-production-2fb3.up.railway.app/](https://t3a2-b-server-production-2fb3.up.railway.app/)
 
