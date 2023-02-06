@@ -439,6 +439,34 @@ const App = () => {
     <>
       <NavBar />
       <Routes>
+        <Route path='/' element={<LandingPage />} />
+        <Route path='/jobs' element={<JobListingsPage jobListings={jobListings}/>} />
+        <Route path='/jobs/:id' element={<JobPostingPageWrapper />} />
+        <Route path='/job-seeker-dashboard' element={<JobSeekerDashboard dashboardApplications={dashboardApplications} userDetails={sessionStorage}/>} />
+        <Route path='/employer-dashboard' element={<EmployerDashboard 
+                                                      dashboardListings={dashboardListings} 
+                                                      deleteListing={deleteListing} 
+                                                      dashboardApplications={dashboardApplications} 
+                                                      userDetails={sessionStorage} 
+                                                      editApplicationStatus={editApplicationStatus}
+                                                      deleteApplication={deleteApplication} />} /> 
+        <Route path='/login' element={<Login userLogin={userLogin} registerUser={registerUser}/>} />
+        <Route path='/create-listing'
+               element ={
+               <CreateListing 
+               
+               submitListing={submitListing}
+               />
+               } 
+               />
+        <Route path='/jobs/:id/edit-listing' element ={<EditListingWrapper editListing={editListing}/>} />
+        <Route path='/terms-of-use' element ={<TermsOfUse />} />
+        <Route path='/privacy' element ={<PrivacyPolicy />} />
+        <Route path='/contact' element ={<ContactUs />} />
+        <Route path='/pagenotfound' element ={<PageNotFound />} />
+        <Route path='/session-expired' element ={<SessionExpired />} />
+        <Route path='/access-denied' element = {<AccessDenied />} />
+=======
         <Route 
           path='/' 
             element={<LandingPage 
