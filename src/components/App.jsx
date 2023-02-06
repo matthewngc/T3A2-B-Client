@@ -371,6 +371,39 @@ const App = () => {
       }
     }
 
+    const deleteApplication =  async (application) => {
+
+      try {
+        console.log(application)
+        const returnedApplication = await fetch(`http://localhost:4002/applications/${application._id}`, {
+          method: 'DELETE',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json',
+            'authorization': 'Bearer ' + sessionStorage.token
+          }
+        })
+        console.log(returnedApplication)
+        // if (returnedListing.status === 403) {  
+        //   logoutMember()
+        //   nav('/jwt-expired')
+        // } else {
+        const targetListingId = application._id
+        const applicationIndex = applications.findIndex(application => targetListingId == application._id)
+        applications.splice(applicationIndex, 1)
+        dashboardApplications.splice(applicationIndex, 1)
+        setApplications(applications)
+        setDashboardApplications(dashboardApplications)
+        nav('/employer-dashboard')
+        
+      }
+      catch (err){
+        console.log(err.message)
+      }
+    }
+
+
+
   return (
     <>
       <NavBar />
@@ -379,7 +412,13 @@ const App = () => {
         <Route path='/jobs' element={<JobListingsPage jobListings={jobListings}/>} />
         <Route path='/jobs/:id' element={<JobPostingPageWrapper />} />
         <Route path='/job-seeker-dashboard' element={<JobSeekerDashboard dashboardApplications={dashboardApplications} userDetails={sessionStorage}/>} />
-        <Route path='/employer-dashboard' element={<EmployerDashboard dashboardListings={dashboardListings} deleteListing={deleteListing} dashboardApplications={dashboardApplications} userDetails={sessionStorage} editApplicationStatus={editApplicationStatus} />} /> 
+        <Route path='/employer-dashboard' element={<EmployerDashboard 
+                                                      dashboardListings={dashboardListings} 
+                                                      deleteListing={deleteListing} 
+                                                      dashboardApplications={dashboardApplications} 
+                                                      userDetails={sessionStorage} 
+                                                      editApplicationStatus={editApplicationStatus}
+                                                      deleteApplication={deleteApplication} />} /> 
         <Route path='/login' element={<Login userLogin={userLogin} registerUser={registerUser}/>} />
         <Route path='/create-listing'
                element ={

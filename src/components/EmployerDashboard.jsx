@@ -4,7 +4,7 @@ import { Button, Form, FormControl } from "react-bootstrap";
 import './styles/EmployerDashboard.css'
 
 
-const EmployerDashboard = ({ dashboardListings, deleteListing, dashboardApplications, userDetails, editApplicationStatus }) => {
+const EmployerDashboard = ({ dashboardListings, deleteListing, dashboardApplications, userDetails, editApplicationStatus, deleteApplication }) => {
   console.log(userDetails)
   console.log(dashboardListings)
   console.log(dashboardApplications)
@@ -123,8 +123,8 @@ const EmployerDashboard = ({ dashboardListings, deleteListing, dashboardApplicat
                   <option value="Shortlisted">Shortlisted</option>
                 </select>
                 <button type="submit">Update Status</button>
-                <button>Delete</button>
                 </form>
+                <button onClick={() => deleteApplication(application)}>Delete</button>
               </td>
             </tr>
           ))}
