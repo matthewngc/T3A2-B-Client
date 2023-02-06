@@ -18,12 +18,14 @@ import SessionExpired from './SessionExpired'
 import AccessDenied from './AccessDenied'
 
 const App = () => {
+
+  // Assign useNavigate to nav
   const nav = useNavigate()
 
   const [jobListings, setJobListings] = useState([])
   useEffect(() => {
     async function getListings() {
-      const res = await fetch('http://localhost:4002/jobs')
+      const res = await fetch('https://t3a2-b-server-production-2fb3.up.railway.app/jobs')
       const data = await res.json()
       setJobListings(data)
     }
@@ -33,7 +35,7 @@ const App = () => {
     const [applications, setApplications] = useState([])
     useEffect(() => {
       async function getApplications() {
-        const res = await fetch('http://localhost:4002/applications')
+        const res = await fetch('https://t3a2-b-server-production-2fb3.up.railway.app/applications')
         const data = await res.json()
         setApplications(data)
     }
@@ -41,20 +43,10 @@ const App = () => {
 
   }, [])
 
-  // const [loggedInStatus, setLoggedInStatus] = useState(false)
-
-  // useEffect(() => {
-  //   if (sessionStorage.token) {
-  //     setLoggedInStatus(true)
-  //   }
-  // }, [setLoggedInStatus])
-
   // Higher Order Components
   const JobPostingPageWrapper = () => {
     const { id } = useParams()
     const listing = jobListings.find(listing => listing._id == id)
-    console.log(jobListings)
-    console.log(listing)
     return listing ? <JobPostingPage listing={listing} submitApplication={submitApplication} /> : <h4>Job Listing not found!</h4>
   }
 
@@ -73,7 +65,7 @@ const App = () => {
         password: password
       }
 
-    const returnedUser = await fetch('http://localhost:4002/auth/login', {
+    const returnedUser = await fetch('https://t3a2-b-server-production-2fb3.up.railway.app/auth/login', {
       method: 'POST',
       headers: {
         'Accept': 'application/json',
@@ -81,10 +73,7 @@ const App = () => {
       },
       'body': JSON.stringify(user)
     })
-    // console.log(returnedUser)
     const userObject = await returnedUser.json()
-    // console.log(userObject)
-    console.log(userObject.token)
     if (userObject.id) {
       sessionStorage.setItem('name', userObject.name)
       sessionStorage.setItem('company', userObject.company)
@@ -114,8 +103,7 @@ const App = () => {
         password: password,
         isEmployer: isEmployer,
       }
-      console.log(newUser)
-      const returnedUser = await fetch('http://localhost:4002/auth/register', {
+      const returnedUser = await fetch('https://t3a2-b-server-production-2fb3.up.railway.app/auth/register', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -123,9 +111,7 @@ const App = () => {
         },
         'body': JSON.stringify(newUser)
       })
-      console.log(returnedUser)
       const returnedObject = await returnedUser.json()
-      console.log(returnedObject)
       if (!returnedObject.error) {
         sessionStorage.setItem('name', returnedObject.name)
         sessionStorage.setItem('company', returnedObject.company)
@@ -133,7 +119,6 @@ const App = () => {
         sessionStorage.setItem('id', returnedObject.id)
         sessionStorage.setItem('token', returnedObject.token)
         sessionStorage.setItem('isEmployer', returnedObject.isEmployer)
-        console.log(sessionStorage)
         setLoggedInMember(true)
         if (returnedObject.isEmployer) {
           nav('/employer-dashboard')
@@ -147,7 +132,7 @@ const App = () => {
   catch (err) {
     console.log(err.message)
   }
-}
+  }
 
   function logoutUser() {
     sessionStorage.clear()
@@ -160,7 +145,7 @@ const App = () => {
 
   // if (loggedInStatus) {
   async function getDashboardApplications() {
-    const res = await fetch('http://localhost:4002/applications/dashboard', {
+    const res = await fetch('https://t3a2-b-server-production-2fb3.up.railway.app/applications/dashboard', {
       method: 'GET',
       headers: {
         'Accept': 'application/json',
@@ -172,7 +157,6 @@ const App = () => {
       nav('/session-expired')
     }
     const data = await res.json()
-    console.log(data)
     setDashboardApplications(data)
   }
 
@@ -184,7 +168,7 @@ const App = () => {
       // Employer dashboard
       useEffect(() => {
         async function getDashboardListings() {
-          const res = await fetch('http://localhost:4002/jobs/dashboard', {
+          const res = await fetch('https://t3a2-b-server-production-2fb3.up.railway.app/jobs/dashboard', {
             method: 'GET',
             headers: {
               'Accept': 'application/json',
@@ -196,14 +180,13 @@ const App = () => {
             nav('/session-expired')
           } 
           const data = await res.json()
-          console.log(data)
           setDashboardListings(data)
         }
         getDashboardListings()
         getDashboardApplications()
       }, [])
   }
-// }
+
   // Create Listing
   const submitListing = async (title,description,company,location,education,experience) => {
     try {
@@ -216,8 +199,7 @@ const App = () => {
         education: education,
         experience: experience
       }
-      console.log(newListing)
-      const returnedListing = await fetch('http://localhost:4002/jobs', {
+      const returnedListing = await fetch('https://t3a2-b-server-production-2fb3.up.railway.app/jobs', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -230,21 +212,16 @@ const App = () => {
         logoutUser()
         nav('/session-expired')
       } 
-      console.log(returnedListing) 
-      console.log(returnedListing.status)
       const returnedObject = await returnedListing.json()
-      console.log(returnedObject)
-      // if (returnedListing.status === 403) {
-      //   logoutmember()
-      //   nav('/jwt-expired')
-      // } else 
-      // {
+      if (returnedListing.status === 403) {
+        logoutUser()
+        nav('/session-expired')
+      } else 
+      {
       jobListings.unshift(returnedObject)
       dashboardListings.unshift(returnedObject)
-
-      // setJobListings(...jobListings, returnedObject)
       nav(`/jobs/${returnedObject._id}`)
-      // }
+      }
 
      }
      catch (err) {
@@ -263,7 +240,7 @@ const App = () => {
           experience: experience
         }
 
-        const returnedListing = await fetch(`http://localhost:4002/jobs/${listing._id}`, {
+        const returnedListing = await fetch(`https://t3a2-b-server-production-2fb3.up.railway.app/jobs/${listing._id}`, {
           method: 'PUT',
           headers: {
             'Accept': 'application/json',
@@ -279,10 +256,10 @@ const App = () => {
 
         const returnedObject = await returnedListing.json()
 
-        //  if (returnedListing.status === 403) {
-        //   logoutMember()
-        //   nav('/jwt-expired')
-        //  } else {
+         if (returnedListing.status === 403) {
+          logoutUser()
+          nav('/session-expired')
+         } else {
         const targetListingId = listing._id
 
         const listingIndex = jobListings.findIndex(listing => targetListingId == listing._id)
@@ -291,12 +268,9 @@ const App = () => {
         dashboardListings.splice(listingIndex, 1, returnedObject)
         setJobListings(jobListings)
         setDashboardListings(dashboardListings)
-        console.log(setDashboardListings(dashboardListings))
-
-      //  window.scrollTo(0,0)
         nav(`/jobs/${targetListingId}`)
       }
-      // }
+      }
       catch (err) {
         console.log(err.message)
       }
@@ -306,7 +280,7 @@ const App = () => {
     const deleteListing =  async (listing) => {
 
       try {
-        const returnedPost = await fetch(`http://localhost:4002/jobs/${listing._id}`, {
+        const returnedPost = await fetch(`https://t3a2-b-server-production-2fb3.up.railway.app/jobs/${listing._id}`, {
           method: 'DELETE',
           headers: {
             'Accept': 'application/json',
@@ -334,12 +308,11 @@ const App = () => {
     }
 
     const submitApplication = async (listing) => {
-      console.log(listing)
       try {
         const newApplication = {
           listing: listing._id,
         }
-        const returnedApplication = await fetch(`http://localhost:4002/applications`, {
+        const returnedApplication = await fetch(`https://t3a2-b-server-production-2fb3.up.railway.app/applications`, {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
@@ -352,7 +325,6 @@ const App = () => {
           logoutUser()
           nav('/session-expired')
         } 
-        console.log(returnedApplication)
         const returnedObject = await returnedApplication.json()
         dashboardApplications.unshift(returnedObject)
         setDashboardApplications(dashboardApplications)
@@ -369,9 +341,7 @@ const App = () => {
         const newStatus = {
           status: status
         }
-        console.log(newStatus)
-        console.log(application._id)
-        const returnedStatus = await fetch(`http://localhost:4002/applications/${application._id}`, {
+        const returnedStatus = await fetch(`https://t3a2-b-server-production-2fb3.up.railway.app/applications/${application._id}`, {
           method: 'PUT',
           mode: 'no-cors',
           headers: {
@@ -384,12 +354,8 @@ const App = () => {
         if (res.status === 401) {
           logoutUser()
           nav('/session-expired')
-        } 
-        // if (!returnedStatus.ok) {
-        //   throw new Error(`HTTP error! status: ${returnedStatus.status}`)
-        // }
+        }
         const returnedObject = await returnedStatus.json()
-        console.log(returnedObject)
         const targetApplicationId = application._id
         const applicationIndex = applications.findIndex(application => targetApplicationId == application._id)
         dashboardApplications.splice(applicationIndex, 1, returnedObject)
@@ -402,8 +368,7 @@ const App = () => {
     const deleteApplication =  async (application) => {
 
       try {
-        console.log(application)
-        const returnedApplication = await fetch(`http://localhost:4002/applications/${application._id}`, {
+        const returnedApplication = await fetch(`https://t3a2-b-server-production-2fb3.up.railway.app/applications/${application._id}`, {
           method: 'DELETE',
           headers: {
             'Accept': 'application/json',
@@ -415,11 +380,6 @@ const App = () => {
           logoutUser()
           nav('/session-expired')
         } 
-        console.log(returnedApplication)
-        // if (returnedListing.status === 403) {  
-        //   logoutMember()
-        //   nav('/jwt-expired')
-        // } else {
         const targetListingId = application._id
         const applicationIndex = applications.findIndex(application => targetListingId == application._id)
         applications.splice(applicationIndex, 1)
@@ -427,7 +387,6 @@ const App = () => {
         setApplications(applications)
         setDashboardApplications(dashboardApplications)
         nav('/employer-dashboard')
-        
       }
       catch (err){
         console.log(err.message)
