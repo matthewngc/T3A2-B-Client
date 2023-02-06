@@ -47,7 +47,7 @@ const App = () => {
     const listing = jobListings.find(listing => listing._id == id)
     console.log(jobListings)
     console.log(listing)
-    return listing ? <JobPostingPage listing={listing} /> : <h4>Job Listing not found!</h4>
+    return listing ? <JobPostingPage listing={listing} submitApplication={submitApplication} /> : <h4>Job Listing not found!</h4>
   }
 
   const EditListingWrapper = () => {
@@ -347,24 +347,26 @@ const App = () => {
     }
 
     const submitApplication = async (listing) => {
+      console.log(listing)
       try {
         const newApplication = {
-          listing: listing,
+          listing: listing._id,
         }
-        const returnedApplication = await fetch(`http://localhost:4002/jobs/${listing._id}`, {
+        const returnedApplication = await fetch(`http://localhost:4002/applications`, {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer' + sessionStorage.token
+            'Authorization': 'Bearer ' + sessionStorage.token
           },
           'body': JSON.stringify(newApplication)
         })
-
+        console.log(returnedApplication)
         const returnedObject = await returnedApplication.json()
-        applications.unshift(returnedObject)
+        dashboardApplications.unshift(returnedObject)
+        setDashboardApplications(dashboardApplications)
         
-        nav(`/jobs/${returnedObject._id}`)
+        nav(`/job-seeker-dashboard`)
       }
       catch (err) {
         console.log(err.message)

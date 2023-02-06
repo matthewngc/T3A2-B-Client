@@ -1,7 +1,8 @@
 import React from 'react'
 import './styles/JobPostingPage.css'
 
-const JobPostingPage = ({ listing }) => {
+const JobPostingPage = ({ listing, submitApplication }) => {
+
   return (
   <>
     <div className="JobPostingPage">
@@ -19,7 +20,7 @@ const JobPostingPage = ({ listing }) => {
         <li>Ability to work independently and as part of a team</li>
       </ul>
       {/* application button */}
-      <button>Apply</button>
+      <button onClick={() => submitApplication(listing)}>Apply</button>
     </div>
   </>
   );
