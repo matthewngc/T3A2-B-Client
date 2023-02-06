@@ -3,7 +3,6 @@
 ## By [Anthony Huynh](https://github.com/antohuynh), [Matthew Ng](https://github.com/matthewngc) & [Timothy Nguyen](https://github.com/timmywebdev)
 ---
 
-
 Steve's Jobs is a job seeking platform designed for Jobseekers and Employers. A user can sign up as an Employer and post job listings while a Jobseeker can look at those listings and apply to them.
 
 Steve's Jobs is a MERN stack application and is deployed on Railway and Netlify.
@@ -16,7 +15,7 @@ Steve's Jobs is a MERN stack application and is deployed on Railway and Netlify.
 
 Deployed Application: []()
 
-Staging Environment: []()
+Deployed Backend: [https://t3a2-b-server-production-2fb3.up.railway.app/](https://t3a2-b-server-production-2fb3.up.railway.app/)
 
 Server Repo: [https://github.com/matthewngc/T3A2-B-Server](https://github.com/matthewngc/T3A2-B-Server)
 
@@ -68,15 +67,74 @@ Manual Testing During Development, Staging and Production:
 | 4 | Verify that the job application process works correctly | 1. Open the application in a web browser. <br> 2. Visit the homepage URL. <br> 3. Log in as a jobseeker. <br> 4. Click on a job posting to view its details. <br> 5. Click the "Apply" button. | 1. The job application should go through and it should appear on the jobseeker dashboard | Pass |
 | 5 | Verify that creating a joblisting as an employer works correctly | 1. Open the application in a web browser. <br> 2. Visit the homepage URL. <br> 3. Log in as an employer. <br> 4. Click on a 'Create a Listing' <br> 5. Fill in the relevant details and submit | 1. The job listing should be created and it can be viewed on the joblisting page and a list in the employer dashboard | Pass |
 
+Front-end automated testing: [https://github.com/matthewngc/T3A2-B-Client/tree/main/src/components/tests](https://github.com/matthewngc/T3A2-B-Client/tree/main/src/components/tests)
 
-Postman Testing: 
+Back-end automated testing: [https://github.com/matthewngc/T3A2-B-Server/tree/main/tests](https://github.com/matthewngc/T3A2-B-Server/tree/main/tests)
 
-Front-end automated testing: 
+Postman: 
 
-Back-end automated testing:
+    Login as Employer:
+![Postman1](docs/loginemployer.PNG)
+    
+    Login as Jobseeker:
+![Postman2](docs/loginjobseeker.PNG)
+    
+    Get all jobs:
+![Postman3](docs/getjobsall.PNG)
+    
+    Get one job:
+![Postman4](docs/getjobsone.PNG)
+    
+    Register as jobseeker:
+![Postman5](docs/registerjobseeker.PNG)
+    
+    Register as employer:
+![Postman6](docs/registeremployer.PNG)
+    
+    Post application:
+![Postman7](docs/postapplication.PNG)
+    
+    Post joblisting:
+![Postman8](docs/postjoblisting.PNG)
+    
+    Update joblisting:
+![Postman9](docs/updatejoblisting.PNG)
+    
+    Delete application:
+![Postman10](docs/deleteapplication.PNG)
+    
+    Delete joblisting:
+![Postman11](docs/deletejoblisting.PNG)
+    
+    Get applications (Employer):
+![Postman12](docs/getapplicationsemployerdashboard.PNG)
+    
+    Get applications (Jobseeker):
+![Postman13](docs/getapplicationsjobseekerdashboard.PNG)
+    
+    Get joblistings (Employer):
+![Postman14](docs/getjoblistingsemployerdashboard.PNG)
+    
+    Edit application:
+![Postman15](docs/editapplication.PNG)
+
 
 #
 
 ## Trello
 
-[Link to Trello Workspace]()
+[Link to Trello Workspace](https://trello.com/invite/b/pT8OVgb1/ATTI374649f9e9ea48f327111d9b527bdbba33BB8CDB/t3a2-full-stack-app)
+
+At the end of each day, we took a screenshot of the Trello board
+
+    Day 1:
+![Trello1](docs/trelloday1final.PNG)
+
+    Day 2:
+![Trello2](docs/trelloday2final.PNG)
+
+    Day 3:
+![Trello3](docs/trelloday3final.PNG)
+
+    Day 4:
+![Trello4](docs/trelloday4final.PNG)
