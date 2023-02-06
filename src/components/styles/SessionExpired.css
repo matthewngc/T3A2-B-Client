@@ -1,0 +1,28 @@
+.session-expired {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 90vh;
+    font-family: Arial, sans-serif;
+    font-size: 24px;
+    color: #333;
+  }
+  
+  .session-expired h1 {
+    margin-top: 50px;
+  }
+  
+  .session-expired h2 {
+    margin-top: 20px;
+  }
+  
+  .session-expired a {
+    color: #337ab7;
+    text-decoration: none;
+  }
+  
+  .session-expired a:hover {
+    color: #23527c;
+    text-decoration: underline;
+  }
+  
